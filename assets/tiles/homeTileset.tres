@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=30 format=2]
+[gd_resource type="TileSet" load_steps=31 format=2]
 
 [ext_resource path="res://assets/tiles/home_tiles.png" type="Texture" id=1]
 
@@ -127,17 +127,22 @@ points = PoolVector2Array( -15.8445, -16.0176, 15.8909, -15.9482, 16.0298, 16.06
 custom_solver_bias = 0.0
 points = PoolVector2Array( -15.8445, -16.0176, 15.8909, -15.9482, 16.0298, 16.0649, -16.0528, 16.0649 )
 
-[sub_resource type="RectangleShape2D" id=26]
+[sub_resource type="ConvexPolygonShape2D" id=26]
+
+custom_solver_bias = 0.0
+points = PoolVector2Array( -15.9782, 15.9857, 16.0002, -16.0008, 16.0114, 15.9954 )
+
+[sub_resource type="RectangleShape2D" id=27]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 9.52 )
 
-[sub_resource type="ConvexPolygonShape2D" id=27]
+[sub_resource type="ConvexPolygonShape2D" id=28]
 
 custom_solver_bias = 0.0
 points = PoolVector2Array( 16.0463, -16.7639, 16.0208, 15.1906, -15.9417, 15.1906, -15.9571, -16.7285 )
 
-[sub_resource type="ConvexPolygonShape2D" id=28]
+[sub_resource type="ConvexPolygonShape2D" id=29]
 
 custom_solver_bias = 0.0
 points = PoolVector2Array( 31.9428, 0.0505676, 31.9428, 3.14995, -31.982, 2.95624, -31.982, -0.143158 )
@@ -273,7 +278,7 @@ points = PoolVector2Array( 31.9428, 0.0505676, 31.9428, 3.14995, -31.982, 2.9562
 7/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
-"shape": SubResource( 26 ),
+"shape": SubResource( 27 ),
 "shape_transform": Transform2D( 1.56174, 0, 0, 1.647, 15.8304, 15.5689 )
 } ]
 8/name = "tile9"
@@ -287,7 +292,7 @@ points = PoolVector2Array( 31.9428, 0.0505676, 31.9428, 3.14995, -31.982, 2.9562
 8/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
-"shape": SubResource( 27 ),
+"shape": SubResource( 28 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 16, 16 )
 } ]
 9/name = "tile10"
@@ -301,7 +306,7 @@ points = PoolVector2Array( 31.9428, 0.0505676, 31.9428, 3.14995, -31.982, 2.9562
 9/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
-"shape": SubResource( 28 ),
+"shape": SubResource( 29 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 32, 16 )
 } ]
 10/name = "tile11"
@@ -561,10 +566,10 @@ points = PoolVector2Array( 31.9428, 0.0505676, 31.9428, 3.14995, -31.982, 2.9562
 32/texture = ExtResource( 1 )
 32/tex_offset = Vector2( 0, 0 )
 32/modulate = Color( 1, 1, 1, 1 )
-32/region = Rect2( 224, 128, 32, 64 )
+32/region = Rect2( 224, 128, 32, 32 )
 32/is_autotile = false
-32/occluder_offset = Vector2( 16, 32 )
-32/navigation_offset = Vector2( 16, 32 )
+32/occluder_offset = Vector2( 16, 16 )
+32/navigation_offset = Vector2( 16, 16 )
 32/shapes = [  ]
 33/name = "tile28"
 33/texture = ExtResource( 1 )
@@ -696,6 +701,65 @@ points = PoolVector2Array( 31.9428, 0.0505676, 31.9428, 3.14995, -31.982, 2.9562
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "shape": SubResource( 25 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 16, 16 )
+} ]
+46/name = "tile42"
+46/texture = ExtResource( 1 )
+46/tex_offset = Vector2( 0, 0 )
+46/modulate = Color( 1, 1, 1, 1 )
+46/region = Rect2( 224, 160, 32, 32 )
+46/is_autotile = false
+46/occluder_offset = Vector2( 16, 16 )
+46/navigation_offset = Vector2( 16, 16 )
+46/shapes = [  ]
+47/name = "tile39"
+47/texture = ExtResource( 1 )
+47/tex_offset = Vector2( 0, 0 )
+47/modulate = Color( 1, 1, 1, 1 )
+47/region = Rect2( 32, 192, 32, 32 )
+47/is_autotile = false
+47/occluder_offset = Vector2( 16, 16 )
+47/navigation_offset = Vector2( 16, 16 )
+47/shapes = [  ]
+48/name = "tile40"
+48/texture = ExtResource( 1 )
+48/tex_offset = Vector2( 0, 0 )
+48/modulate = Color( 1, 1, 1, 1 )
+48/region = Rect2( 32, 224, 32, 32 )
+48/is_autotile = false
+48/occluder_offset = Vector2( 16, 16 )
+48/navigation_offset = Vector2( 16, 16 )
+48/shapes = [  ]
+49/name = "tile41"
+49/texture = ExtResource( 1 )
+49/tex_offset = Vector2( 0, 0 )
+49/modulate = Color( 1, 1, 1, 1 )
+49/region = Rect2( 0, 224, 32, 32 )
+49/is_autotile = false
+49/occluder_offset = Vector2( 16, 16 )
+49/navigation_offset = Vector2( 16, 16 )
+49/shapes = [  ]
+50/name = "tile43"
+50/texture = ExtResource( 1 )
+50/tex_offset = Vector2( 0, 0 )
+50/modulate = Color( 1, 1, 1, 1 )
+50/region = Rect2( 64, 192, 96, 64 )
+50/is_autotile = false
+50/occluder_offset = Vector2( 48, 32 )
+50/navigation_offset = Vector2( 48, 32 )
+50/shapes = [  ]
+51/name = "tile38"
+51/texture = ExtResource( 1 )
+51/tex_offset = Vector2( 0, 0 )
+51/modulate = Color( 1, 1, 1, 1 )
+51/region = Rect2( 224, 32, 32, 32 )
+51/is_autotile = false
+51/occluder_offset = Vector2( 16, 16 )
+51/navigation_offset = Vector2( 16, 16 )
+51/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"shape": SubResource( 26 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 16, 16 )
 } ]
 
