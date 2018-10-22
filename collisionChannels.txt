@@ -1,0 +1,2 @@
+Channel 1: Collides with player
+Channel 2: Collides with spells

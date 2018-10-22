@@ -7,28 +7,35 @@ const MAX_SPEED = 200
 const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
 const FIREBOLT_SCENE = preload("res://assets/scenes/firebolt.tscn")
+const RUNE_SCENE = preload("res://assets/scenes/rune.tscn")
 
 var motion = Vector2()
 var jumping = false
 var on_ladder = false
 var left = false
 var cooldown = false
+var crouch = false
 
 func _ready():
 	set_process(true)
 	
 func _process(delta):
 	if !cooldown:
-		if Input.is_key_pressed(KEY_SPACE):
-			var fb = FIREBOLT_SCENE.instance()
-			fb.orient(left)
-			get_parent().add_child(fb)
-			fb.position = $Sprite/projectilePos.global_position
-			cooldown = true
-			$ProjectileTimer.start()
+		if Input.is_action_just_pressed("ui_attack"):
+			if !crouch:
+				var fb = FIREBOLT_SCENE.instance()
+				fb.orient(left)
+				get_parent().add_child(fb)
+				fb.position = $Sprite/projectilePos.global_position
+				cooldown = true
+				$ProjectileTimer.start()
+			else:
+				var rn = RUNE_SCENE.instance()
+				get_parent().add_child(rn)
+				rn.global_position = $Sprite/projectilePos.global_position
 
 func _physics_process(delta):
-	var tilemap = get_parent()
+	var tilemap = get_tree().current_scene.find_node("midground")
 	
 	if on_ladder:
 		if Input.is_action_pressed("ui_up"):
@@ -61,10 +68,10 @@ func _physics_process(delta):
 		$Sprite.playing = false
 		motion.x = 0
 		
-	if Input.is_key_pressed(KEY_F):
-		get_node("../../MagicCircle/spell").activate()
-	if Input.is_key_pressed(KEY_R):
-		get_node("../../MagicCircle/spell").deactivate()
+	if Input.is_key_pressed(KEY_SHIFT):
+		crouch = true
+	else:
+		crouch = false
 		
 	if not tilemap == null:
 		var id = tilemap.get_cellv(tilemap.world_to_map(position))
