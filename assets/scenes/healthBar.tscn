@@ -24,8 +24,8 @@ animations = [ {
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+scale = Vector2( 1.66, 1.66 )
+transform = Transform2D( 1.66, 0, 0, 1.66, 0, 0 )
 
 [node name="healthBar" type="Control" parent="." index="0"]
 
@@ -48,6 +48,7 @@ script = ExtResource( 1 )
 [node name="john" type="AnimatedSprite" parent="healthBar" index="0"]
 
 light_mask = 0
+position = Vector2( -20.9558, -21.5545 )
 frames = SubResource( 1 )
 animation = "default"
 _sections_unfolded = [ "Visibility" ]

@@ -1,0 +1,175 @@
+[gd_scene load_steps=62 format=2]
+
+[ext_resource path="res://scripts/playerHarry.gd" type="Script" id=1]
+[ext_resource path="res://assets/char/harry/harry_crouchLeft_0.png" type="Texture" id=2]
+[ext_resource path="res://assets/char/harry/harry_crouchLeft_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/char/harry/harry_crouchLeft_2.png" type="Texture" id=4]
+[ext_resource path="res://assets/char/harry/harry_crouchLeft_3.png" type="Texture" id=5]
+[ext_resource path="res://assets/char/harry/harry_crouchLeft_4.png" type="Texture" id=6]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_00.png" type="Texture" id=7]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_01.png" type="Texture" id=8]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_03.png" type="Texture" id=10]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_04.png" type="Texture" id=11]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_05.png" type="Texture" id=12]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_06.png" type="Texture" id=13]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_07.png" type="Texture" id=14]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_08.png" type="Texture" id=15]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_09.png" type="Texture" id=16]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_10.png" type="Texture" id=17]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_11.png" type="Texture" id=18]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_12.png" type="Texture" id=19]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_13.png" type="Texture" id=20]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_14.png" type="Texture" id=21]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_15.png" type="Texture" id=22]
+[ext_resource path="res://assets/char/harry/harry_walkLeft_16.png" type="Texture" id=23]
+[ext_resource path="res://assets/char/harry/harry_crouch_0.png" type="Texture" id=24]
+[ext_resource path="res://assets/char/harry/harry_crouch_1.png" type="Texture" id=25]
+[ext_resource path="res://assets/char/harry/harry_crouch_2.png" type="Texture" id=26]
+[ext_resource path="res://assets/char/harry/harry_crouch_3.png" type="Texture" id=27]
+[ext_resource path="res://assets/char/harry/harry_crouch_4.png" type="Texture" id=28]
+[ext_resource path="res://assets/char/harry/harry_walk_00.png" type="Texture" id=29]
+[ext_resource path="res://assets/char/harry/harry_walk_01.png" type="Texture" id=30]
+[ext_resource path="res://assets/char/harry/harry_walk_02.png" type="Texture" id=31]
+[ext_resource path="res://assets/char/harry/harry_walk_03.png" type="Texture" id=32]
+[ext_resource path="res://assets/char/harry/harry_walk_04.png" type="Texture" id=33]
+[ext_resource path="res://assets/char/harry/harry_walk_05.png" type="Texture" id=34]
+[ext_resource path="res://assets/char/harry/harry_walk_06.png" type="Texture" id=35]
+[ext_resource path="res://assets/char/harry/harry_walk_07.png" type="Texture" id=36]
+[ext_resource path="res://assets/char/harry/harry_walk_08.png" type="Texture" id=37]
+[ext_resource path="res://assets/char/harry/harry_walk_09.png" type="Texture" id=38]
+[ext_resource path="res://assets/char/harry/harry_walk_10.png" type="Texture" id=39]
+[ext_resource path="res://assets/char/harry/harry_walk_11.png" type="Texture" id=40]
+[ext_resource path="res://assets/char/harry/harry_walk_12.png" type="Texture" id=41]
+[ext_resource path="res://assets/char/harry/harry_walk_13.png" type="Texture" id=42]
+[ext_resource path="res://assets/char/harry/harry_walk_14.png" type="Texture" id=43]
+[ext_resource path="res://assets/char/harry/harry_walk_15.png" type="Texture" id=44]
+[ext_resource path="res://assets/char/harry/harry_walk_16.png" type="Texture" id=45]
+[ext_resource path="res://assets/char/harry/harryAttack1.png" type="Texture" id=46]
+[ext_resource path="res://assets/char/harry/harryAttack2.png" type="Texture" id=47]
+[ext_resource path="res://assets/char/harry/harryAttack3.png" type="Texture" id=48]
+[ext_resource path="res://assets/char/harry/harryAttack4.png" type="Texture" id=49]
+[ext_resource path="res://assets/char/harry/harryAttack5.png" type="Texture" id=50]
+[ext_resource path="res://assets/char/harry/harryAttack6.png" type="Texture" id=51]
+[ext_resource path="res://assets/char/harry/harryAttack7.png" type="Texture" id=52]
+[ext_resource path="res://assets/char/harry/harryAttack8.png" type="Texture" id=53]
+[ext_resource path="res://assets/char/harry/harryAttack10.png" type="Texture" id=54]
+[ext_resource path="res://assets/char/harry/harryAttack11.png" type="Texture" id=55]
+[ext_resource path="res://assets/char/harry/harryAttack12.png" type="Texture" id=56]
+[ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=57]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "crouchLeft",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "walkLeft",
+"speed": 25.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "crouchRight",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "walkRight",
+"speed": 25.0
+} ]
+
+[sub_resource type="OccluderPolygon2D" id=2]
+
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( 0.739777, -24.6429, 7.82492, -23.6038, 10.47, -17.2744, 10.47, -12.2675, 10.7534, -7.73303, 7.2581, -4.42664, 5.17979, -0.458984, 5.17979, 2.84741, 4.23511, 8.13763, 2.91255, 13.239, 1.8734, 17.1122, 0.550842, 12.8611, -1.7164, 8.98785, -3.03897, 2.09167, -1.90535, -1.78156, -2.47215, -5.5603, -5.21175, -7.82751, -7.19559, -13.5901, -7.57346, -18.7859, -4.55046, -22.7535 )
+
+[sub_resource type="SpriteFrames" id=4]
+
+animations = [ {
+"frames": [ ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 9.15941
+height = 38.5724
+
+[node name="player_harry" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="0"]
+
+position = Vector2( -1.94893, 0.587189 )
+frames = SubResource( 1 )
+animation = "walkRight"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite" index="0"]
+
+occluder = SubResource( 2 )
+light_mask = 1
+
+[node name="Camera2D" type="Camera2D" parent="Sprite" index="1"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 0.6, 0.6 )
+limit_left = -600
+limit_top = -500
+limit_right = 1120
+limit_bottom = 640
+limit_smoothed = false
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.1
+drag_margin_right = 0.2
+drag_margin_bottom = 0.1
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin" ]
+
+[node name="swordCast" type="RayCast2D" parent="Sprite" index="2"]
+
+position = Vector2( -0.95131, 5.70785 )
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 26, 0 )
+collision_mask = 1
+
+[node name="atk" type="AnimatedSprite" parent="Sprite" index="3"]
+
+visible = false
+frames = SubResource( 4 )
+animation = "default"
+
+[node name="Collider" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( -0.927902, 1.04384 )
+shape = SubResource( 3 )
+
+[node name="healthBar" parent="." index="2" instance=ExtResource( 57 )]
+
+[connection signal="animation_finished" from="Sprite/atk" to="." method="_on_Sprite_animation_finished"]
+
+
