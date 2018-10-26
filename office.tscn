@@ -338,6 +338,8 @@ _sections_unfolded = [ "Cell" ]
 
 [node name="Lights" type="Node2D" parent="." index="3"]
 
+editor/display_folded = true
+
 [node name="Light2D" type="Light2D" parent="Lights" index="0"]
 
 position = Vector2( -144.788, 436.777 )

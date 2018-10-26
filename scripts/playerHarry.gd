@@ -37,6 +37,7 @@ func _physics_process(delta):
 		if !crouch:
 			attacking = true
 			atk.enabled = true
+			$Sprite/atk.frame = 0
 			$Sprite/atk.visible = true
 			$Sprite/atk.playing = true
 			if atk.is_colliding():
