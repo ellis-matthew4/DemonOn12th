@@ -172,11 +172,9 @@ func attack():
 	atk.enabled = false
 	$Sprite/atk.playing = true
 
-
 func _on_frictionTimer_timeout():
 	friction = false
 	thrust = false
-
 
 func _on_comboTimer_timeout():
 	combo = 0
