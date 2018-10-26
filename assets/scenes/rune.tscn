@@ -43,7 +43,7 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Color", "Emission Shape" ]
 
-[node name="root" type="Node2D"]
+[node name="root" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 

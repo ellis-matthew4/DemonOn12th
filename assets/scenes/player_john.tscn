@@ -133,7 +133,9 @@ custom_solver_bias = 0.0
 radius = 12.9962
 height = 35.2722
 
-[node name="player_john" type="KinematicBody2D" index="0"]
+[node name="player_john" type="KinematicBody2D" groups=[
+"playable_characters",
+]]
 
 input_pickable = false
 collision_layer = 1
@@ -186,7 +188,7 @@ _sections_unfolded = [ "Drag Margin", "Smoothing" ]
 
 [node name="Collider" type="CollisionShape2D" parent="." index="1"]
 
-position = Vector2( -4.57764e-005, 0 )
+position = Vector2( -4.57764e-05, 0 )
 shape = SubResource( 3 )
 
 [node name="ProjectileTimer" type="Timer" parent="." index="2"]

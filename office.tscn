@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/office.gd" type="Script" id=1]
 [ext_resource path="res://assets/tiles/homeTileset.tres" type="TileSet" id=2]
-[ext_resource path="res://assets/scenes/player_john.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/scenes/door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/lightmaps/bulb_cone.png" type="Texture" id=4]
 [ext_resource path="res://assets/lightmaps/magic.png" type="Texture" id=5]
 [ext_resource path="res://scripts/spell.gd" type="Script" id=6]
@@ -311,9 +311,12 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Characters" type="Node2D" parent="midground" index="1"]
 
-[node name="player" parent="midground/Characters" index="0" instance=ExtResource( 3 )]
+[node name="Doors" type="Node2D" parent="midground" index="2"]
 
-position = Vector2( 144.056, 575.539 )
+[node name="door" parent="midground/Doors" index="0" instance=ExtResource( 3 )]
+
+position = Vector2( -337, 573 )
+warpPoint = Vector2( 0, 0 )
 
 [node name="foreground" type="TileMap" parent="." index="2"]
 

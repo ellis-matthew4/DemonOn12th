@@ -9,3 +9,4 @@ func _ready():
 func _process(delta):
 	$john.frame = globs.hp[0]
 	$harry.frame = globs.hp[1]
+	$Label.text = str(Engine.get_frames_per_second())
