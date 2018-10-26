@@ -16,6 +16,10 @@ var left = false
 var crouch = false
 var attacking = false
 
+var combo = 0
+var thrust = false
+var friction = false
+
 onready var col = get_node("Collider")
 onready var ocl = get_node("Sprite/LightOccluder2D")
 onready var atk = get_node("Sprite/swordCast")
@@ -33,16 +37,10 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
+	
 	if Input.is_action_just_pressed("ui_attack"):
 		if !crouch:
-			attacking = true
-			atk.enabled = true
-			$Sprite/atk.frame = 0
-			$Sprite/atk.visible = true
-			$Sprite/atk.playing = true
-			if atk.is_colliding():
-				var obj = atk.get_collider()
-			atk.enabled = false
+			attack()
 	
 	if on_ladder:
 		if Input.is_action_pressed("ui_up"):
@@ -81,7 +79,8 @@ func _physics_process(delta):
 	else:
 		if !attacking:
 			$Sprite.playing = false
-		motion.x = 0
+		if !friction:
+			motion.x = 0
 		
 	if Input.is_action_just_pressed("ui_switch"):
 		col.rotation = deg2rad(90)
@@ -115,9 +114,19 @@ func _physics_process(delta):
 	if is_on_floor():
 		if Input.is_action_just_pressed("ui_up"):
 			motion.y = -JUMP_HEIGHT
+		if friction:
+			motion.x = lerp(motion.x, 0, 0.2)
+		$attackTimer.wait_time = 0.1
+	else:
+		$attackTimer.wait_time = 0.2
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)
 			
+	if thrust:
+		if left:
+			motion.x -= MAX_SPEED
+		else:
+			motion.x += MAX_SPEED
 	motion = move_and_slide(motion, UP)
 	pass
 	
@@ -137,3 +146,38 @@ func _on_Sprite_animation_finished():
 		$Sprite/atk.visible = false
 		$Sprite/atk.playing = false
 		$Sprite/atk.frame = 0
+		
+func attack():
+	attacking = true
+	atk.enabled = true
+	$Sprite/atk.frame = 0
+	$Sprite/atk.visible = true
+	if atk.is_colliding():
+		var obj = atk.get_collider()
+	
+	if combo == 0:
+		combo = 1
+		$Sprite/atk.play("swing")
+		$comboTimer.stop(); $comboTimer.start()
+	elif combo == 1:
+		combo = 2
+		$Sprite/atk.play("uppercut")
+		$comboTimer.stop(); $comboTimer.start()
+	elif combo == 2:
+		combo = 0
+		$Sprite/atk.play("thrust")
+		friction = true
+		thrust = true
+		$attackTimer.start()
+	
+	atk.enabled = false
+	$Sprite/atk.playing = true
+
+
+func _on_frictionTimer_timeout():
+	friction = false
+	thrust = false
+
+
+func _on_comboTimer_timeout():
+	combo = 0

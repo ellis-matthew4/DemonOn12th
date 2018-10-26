@@ -196,7 +196,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -71 ), Vector2( 0, -61 ), Vector2( 0, -61 ), Vector2( 0, -71 ), Vector2( 0, -71 ) ]
 }
 
-[node name="Node" type="Node" index="0"]
+[node name="Node" type="Node"]
 
 script = ExtResource( 1 )
 
