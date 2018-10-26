@@ -54,7 +54,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_right"):
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 		$Sprite.flip_h = false
-		$Sprite/atk.flip_h = false
+		$atk.flip_h = false
 		if left:
 			atk.cast_to *= Vector2(-1,0)
 		if !crouch and !attacking:
@@ -66,7 +66,7 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("ui_left"):
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 		$Sprite.flip_h = true
-		$Sprite/atk.flip_h = true
+		$atk.flip_h = true
 		if !left:
 			atk.cast_to *= Vector2(-1,0)
 			if crouch:
@@ -142,35 +142,35 @@ func swap():
 func _on_Sprite_animation_finished():
 	if attacking:
 		attacking = false
-		$Sprite/atk.visible = false
-		$Sprite/atk.playing = false
-		$Sprite/atk.frame = 0
+		$atk.visible = false
+		$atk.playing = false
+		$atk.frame = 0
 		
 func attack():
 	attacking = true
 	atk.enabled = true
-	$Sprite/atk.frame = 0
-	$Sprite/atk.visible = true
+	$atk.frame = 0
+	$atk.visible = true
 	if atk.is_colliding():
 		var obj = atk.get_collider()
 	
 	if combo == 0:
 		combo = 1
-		$Sprite/atk.play("swing")
+		$atk.play("swing")
 		$comboTimer.stop(); $comboTimer.start()
 	elif combo == 1:
 		combo = 2
-		$Sprite/atk.play("uppercut")
+		$atk.play("uppercut")
 		$comboTimer.stop(); $comboTimer.start()
 	elif combo == 2:
 		combo = 0
-		$Sprite/atk.play("thrust")
+		$atk.play("thrust")
 		friction = true
 		thrust = true
 		$attackTimer.start()
 	
 	atk.enabled = false
-	$Sprite/atk.playing = true
+	$atk.playing = true
 
 func _on_frictionTimer_timeout():
 	friction = false
