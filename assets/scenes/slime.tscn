@@ -1,0 +1,73 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://scripts/slime.gd" type="Script" id=1]
+[ext_resource path="res://assets/enemies/slime/slime_idle_00.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemies/slime/slime_idle_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/slime/slime_idle_02.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemies/slime/slime_idle_03.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemies/slime/slime_idle_04.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemies/slime/slime_idle_05.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemies/slime/slime_idle_06.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemies/slime/slime_idle_07.png" type="Texture" id=9]
+[ext_resource path="res://assets/enemies/slime/slime_idle_08.png" type="Texture" id=10]
+[ext_resource path="res://assets/enemies/slime/slime_idle_09.png" type="Texture" id=11]
+[ext_resource path="res://assets/enemies/slime/slime_idle_10.png" type="Texture" id=12]
+[ext_resource path="res://assets/enemies/slime/slime_idle_11.png" type="Texture" id=13]
+[ext_resource path="res://assets/enemies/slime/slime_idle_12.png" type="Texture" id=14]
+[ext_resource path="res://assets/enemies/slime/slime_idle_13.png" type="Texture" id=15]
+[ext_resource path="res://assets/enemies/slime/slime_idle_14.png" type="Texture" id=16]
+[ext_resource path="res://assets/enemies/slime/slime_idle_15.png" type="Texture" id=17]
+[ext_resource path="res://assets/enemies/slime/slime_idle_16.png" type="Texture" id=18]
+[ext_resource path="res://assets/enemies/slime/slime_jump_00.png" type="Texture" id=19]
+[ext_resource path="res://assets/enemies/slime/slime_jump_01.png" type="Texture" id=20]
+[ext_resource path="res://assets/enemies/slime/slime_jump_02.png" type="Texture" id=21]
+[ext_resource path="res://assets/enemies/slime/slime_jump_03.png" type="Texture" id=22]
+[ext_resource path="res://assets/enemies/slime/slime_jump_04.png" type="Texture" id=23]
+[ext_resource path="res://assets/enemies/slime/slime_jump_05.png" type="Texture" id=24]
+[ext_resource path="res://assets/enemies/slime/slime_jump_06.png" type="Texture" id=25]
+[ext_resource path="res://assets/enemies/slime/slime_jump_07.png" type="Texture" id=26]
+[ext_resource path="res://assets/enemies/slime/slime_jump_08.png" type="Texture" id=27]
+[ext_resource path="res://assets/enemies/slime/slime_jump_09.png" type="Texture" id=28]
+[ext_resource path="res://assets/enemies/slime/slime_jump_10.png" type="Texture" id=29]
+[ext_resource path="res://assets/enemies/slime/slime_jump_11.png" type="Texture" id=30]
+[ext_resource path="res://assets/enemies/slime/slime_jump_12.png" type="Texture" id=31]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "idle",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "jump",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 11.748, 5.91647 )
+
+[node name="root" type="KinematicBody2D" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+
+[node name="slime" type="AnimatedSprite" parent="." index="0"]
+
+frames = SubResource( 1 )
+animation = "idle"
+frame = 14
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+
+

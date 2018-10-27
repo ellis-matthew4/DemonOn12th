@@ -4,7 +4,7 @@ const UP = Vector2(0,-1)
 const GRAVITY = 20
 const ACCELERATION = 50
 const MAX_SPEED = 200
-const JUMP_HEIGHT = 420
+const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
 var NEXT_CHAR
 
@@ -111,8 +111,8 @@ func _physics_process(delta):
 			on_ladder = false
 		
 	if is_on_floor():
-		if Input.is_action_just_pressed("ui_up"):
-			motion.y = -JUMP_HEIGHT
+		if Input.is_action_pressed("ui_up"):
+			motion.y -= JUMP_HEIGHT
 		if friction:
 			motion.x = lerp(motion.x, 0, 0.2)
 		$attackTimer.wait_time = 0.1

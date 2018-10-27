@@ -5,9 +5,9 @@ const start = Vector2(144,575)
 const player = preload("res://assets/scenes/player_john.tscn")
 
 func _ready():
+	CharacterSlot.global_position = start
 	var p = player.instance()
 	CharacterSlot.add_child(p)
-	p.global_position = start
 	set_process(true)
 	
 func _process(delta):
