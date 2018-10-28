@@ -1,20 +1,15 @@
 extends KinematicBody2D
 
-var SPEED = 30
-const JUMP_HEIGHT = 350
-const UP = Vector2(0, -1)
+export var SPEED = 30
 const GRAVITY = 20
-
-var moving = true
 var motion = Vector2()
-var jumping = false
 var damaged = false
 var dying = false
 
 onready var sprite = $slime
+onready var ray = $RayCast2D
 
 func _ready():
-	randomize()
 	set_process(true)
 
 func _process(delta):
@@ -22,19 +17,16 @@ func _process(delta):
 		motion.y += GRAVITY
 		if !is_on_floor():
 			rotation += 0.1
-	var collision = move_and_collide(motion * delta)
-	if collision:
+	if ray.is_colliding():
+		ray.cast_to.x *= -1
 		SPEED *= -1
-		$slime.flip_h = !$slime.flip_h
-			
+		sprite.flip_h = !sprite.flip_h
 	motion.x = SPEED
-	
 	if damaged:
-		motion.x = 400
-		motion.y = -JUMP_HEIGHT
+		motion.x = 0
+		motion.y = -400
 		damaged = false
 		dying = true
-	
 	motion = move_and_slide(motion)
 	
 func damage(obj, damage):
@@ -43,3 +35,7 @@ func damage(obj, damage):
 
 func _on_deathTimer_timeout():
 	queue_free()
+
+func entered_hitbox(body):
+	if body.is_in_group("playable_characters"):
+		body.damage(self, -1)

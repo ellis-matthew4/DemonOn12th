@@ -2,6 +2,7 @@ extends Area2D
 
 var timer
 var damage = 2
+const BOOST = true
 
 func _ready():
 	timer = Timer.new()

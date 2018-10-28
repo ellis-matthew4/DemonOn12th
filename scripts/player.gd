@@ -16,12 +16,15 @@ var on_ladder = false
 var left = false
 var cooldown = false
 var crouch = false
+var damaged = false
 
 onready var col = get_node("Collider")
 onready var ocl = get_node("Sprite/LightOccluder2D")
 onready var tilemap = get_tree().current_scene.find_node("midground")
+onready var dmgTimer = $dmgTimer
 
 func _ready():
+	add_to_group("playable_characters")
 	set_process(true)
 	
 func _process(delta):
@@ -75,7 +78,15 @@ func _physics_process(delta):
 	else:
 		$Sprite.frame = 0
 		$Sprite.playing = false
-		motion.x = 0
+		if !damaged:
+			motion.x = 0
+		
+	if is_on_floor():
+		if Input.is_action_pressed("ui_up"):
+			motion.y -= JUMP_HEIGHT
+	if Input.is_action_just_released("ui_up"):
+		if motion.y < 0:
+			motion.y *= 0.5;
 		
 	if Input.is_action_just_pressed("ui_switch"):
 		$Sprite.play("crouch")
@@ -92,16 +103,6 @@ func _physics_process(delta):
 		$Sprite.play("walk")
 		crouch = false
 		
-	if not tilemap == null:
-		var id = tilemap.get_cellv(tilemap.world_to_map(position))
-		if id > -1:
-			if tilemap.get_tileset().tile_get_name(id) == "ladder":
-				on_ladder = true
-			else:
-				on_ladder = false
-		else:
-			on_ladder = false
-		
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)
 			
@@ -110,14 +111,6 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("ui_change"):
 		swap()
-
-func _input(event):
-	if is_on_floor():
-		if event.is_action_pressed("ui_up"):
-			motion.y -= JUMP_HEIGHT
-	if event.is_action_released("ui_up"):
-		if motion.y < 0:
-			motion.y *= 0.5;
 
 func _on_ProjectileTimer_timeout():
 	cooldown = false
@@ -128,3 +121,27 @@ func swap():
 	get_parent().add_child(x)
 	x.global_position = global_position
 	get_parent().remove_child(self)
+
+func rocketJump(area):
+	if area.BOOST:
+		motion.y = -JUMP_HEIGHT * 4
+		motion = move_and_slide(motion, UP)
+
+func hitbox_entered(area):
+	if area.has_method("ladder"):
+		on_ladder = true
+
+func hitbox_exited(area):
+	on_ladder = false
+	
+func damage(body, amount):
+	globs.damage(amount)
+	if body.global_position.x - global_position.x > 0:
+		motion = Vector2(-200, -200)
+	else:
+		motion = Vector2(200, -200)
+	dmgTimer.start()
+	damaged = true
+
+func _on_dmgTimer_timeout():
+	damaged = false
