@@ -6,6 +6,7 @@ const ACCELERATION = 50
 const MAX_SPEED = 200
 const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
+const ATK = preload("res://assets/scenes/attackArea.tscn")
 var NEXT_CHAR
 
 var motion = Vector2()
@@ -21,7 +22,6 @@ var friction = false
 
 onready var col = get_node("Collider")
 onready var ocl = get_node("Sprite/LightOccluder2D")
-onready var atk = get_node("Sprite/swordCast")
 onready var tilemap = get_tree().current_scene.find_node("midground")
 
 func _ready():
@@ -56,7 +56,7 @@ func _physics_process(delta):
 		$Sprite.flip_h = false
 		$atk.flip_h = false
 		if left:
-			atk.cast_to *= Vector2(-1,0)
+			$Sprite/swordPos.position = Vector2(25, 4)
 		if !crouch and !attacking:
 			$Sprite.play("walkRight")
 		$Sprite.playing = true
@@ -68,7 +68,7 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 		$atk.flip_h = true
 		if !left:
-			atk.cast_to *= Vector2(-1,0)
+			$Sprite/swordPos.position = Vector2(-25, 4)
 			if crouch:
 				ocl.rotation = deg2rad(-90)
 		if !crouch and !attacking:
@@ -111,8 +111,6 @@ func _physics_process(delta):
 			on_ladder = false
 		
 	if is_on_floor():
-		if Input.is_action_pressed("ui_up"):
-			motion.y -= JUMP_HEIGHT
 		if friction:
 			motion.x = lerp(motion.x, 0, 0.2)
 		$attackTimer.wait_time = 0.1
@@ -131,6 +129,14 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("ui_change"):
 		swap()
+		
+func _input(event):
+	if is_on_floor():
+		if event.is_action_pressed("ui_up"):
+			motion.y -= JUMP_HEIGHT
+	if event.is_action_released("ui_up"):
+		if motion.y < 0:
+			motion.y *= 0.5;
 
 func swap():
 	globs.switch_character()
@@ -148,11 +154,11 @@ func _on_Sprite_animation_finished():
 		
 func attack():
 	attacking = true
-	atk.enabled = true
 	$atk.frame = 0
 	$atk.visible = true
-	if atk.is_colliding():
-		var obj = atk.get_collider()
+	var a = ATK.instance()
+	a.damage = 2
+	$Sprite/swordPos.add_child(a)
 	
 	if combo == 0:
 		combo = 1
@@ -168,8 +174,6 @@ func attack():
 		friction = true
 		thrust = true
 		$attackTimer.start()
-	
-	atk.enabled = false
 	$atk.playing = true
 
 func _on_frictionTimer_timeout():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scripts/slime.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/slime/slime_idle_00.png" type="Texture" id=2]
@@ -49,13 +49,18 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-extents = Vector2( 11.748, 5.91647 )
+extents = Vector2( 12, 8 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 13.2072, 12.912 )
 
 [node name="root" type="KinematicBody2D" index="0"]
 
 input_pickable = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 2
+collision_mask = 2
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
 
@@ -63,11 +68,36 @@ script = ExtResource( 1 )
 
 frames = SubResource( 1 )
 animation = "idle"
-frame = 14
+frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
+visible = false
+position = Vector2( 0.846397, -3.92419 )
 shape = SubResource( 2 )
+
+[node name="deathTimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="hitbox" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="box" type="CollisionShape2D" parent="hitbox" index="0"]
+
+shape = SubResource( 3 )
+
+[connection signal="timeout" from="deathTimer" to="." method="_on_deathTimer_timeout"]
 
 

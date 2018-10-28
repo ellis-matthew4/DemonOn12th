@@ -1,6 +1,7 @@
 extends Area2D
 
 var timer
+var damage = 2
 
 func _ready():
 	timer = Timer.new()
@@ -14,3 +15,7 @@ func tick():
 		$Sprite.frame = $Sprite.frame + 1
 	else:
 		get_parent().remove_child(self)
+
+func entered_hitbox(body):
+	if body.has_method("damage"):
+		body.damage(self, damage)

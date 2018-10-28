@@ -115,6 +115,9 @@ func _input(event):
 	if is_on_floor():
 		if event.is_action_pressed("ui_up"):
 			motion.y -= JUMP_HEIGHT
+	if event.is_action_released("ui_up"):
+		if motion.y < 0:
+			motion.y *= 0.5;
 
 func _on_ProjectileTimer_timeout():
 	cooldown = false
