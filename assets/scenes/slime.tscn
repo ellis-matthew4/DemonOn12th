@@ -56,7 +56,7 @@ extents = Vector2( 12, 8 )
 custom_solver_bias = 0.0
 extents = Vector2( 13.2072, 12.912 )
 
-[node name="root" type="KinematicBody2D" index="0"]
+[node name="root" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 2
@@ -69,7 +69,7 @@ SPEED = 30
 
 frames = SubResource( 1 )
 animation = "idle"
-frame = 4
+frame = 10
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]

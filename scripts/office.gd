@@ -3,6 +3,7 @@ extends Node
 onready var CharacterSlot = get_node("midground/Characters")
 const start = Vector2(144,575)
 const player = preload("res://assets/scenes/player_john.tscn")
+const PATH = "res://office.tscn"
 
 func _ready():
 	CharacterSlot.global_position = start
