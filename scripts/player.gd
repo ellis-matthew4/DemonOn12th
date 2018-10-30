@@ -9,6 +9,7 @@ const LADDER_SPEED = 300
 const FIREBOLT_SCENE = preload("res://assets/scenes/firebolt.tscn")
 const RUNE_SCENE = preload("res://assets/scenes/rune.tscn")
 const NEXT_CHAR = preload("res://assets/scenes/player_harry.tscn")
+const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 
 var motion = Vector2()
 var jumping = false
@@ -41,6 +42,9 @@ func _process(delta):
 				var rn = RUNE_SCENE.instance()
 				tilemap.add_child(rn)
 				rn.global_position = $Sprite/projectilePos.global_position
+	if Input.is_action_just_pressed("ui_pause"):
+		$PauseMenu.show()
+		get_tree().paused = true
 
 func _physics_process(delta):	
 	if on_ladder:
@@ -124,8 +128,7 @@ func swap():
 
 func rocketJump(area):
 	if area.BOOST:
-		motion.y = -JUMP_HEIGHT * 4
-		motion = move_and_slide(motion, UP)
+		motion.y = -JUMP_HEIGHT * 1.3
 
 func hitbox_entered(area):
 	if area.has_method("ladder"):
