@@ -7,6 +7,6 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
-	$john.frame = globs.hp[0]
-	$harry.frame = globs.hp[1]
+	$john/bar.frame = globs.hp[0]
+	$harry/bar.frame = globs.hp[1]
 	$Label.text = str(Engine.get_frames_per_second())

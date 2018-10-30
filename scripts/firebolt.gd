@@ -2,6 +2,7 @@ extends RigidBody2D
 
 var FIREBALL_SPEED = 300
 const EXPLOSION = preload("res://assets/scenes/explosion.tscn")
+var damage = 2
 
 func _ready():
 	set_process(true)
@@ -22,3 +23,8 @@ func _on_Timer_timeout():
 	get_parent().add_child(bomb)
 	bomb.global_position = self.global_position
 	get_parent().remove_child(self)
+
+func _on_Source_body_entered(body):
+	if body.has_method("damage"):
+		body.damage(self, damage)
+		_on_Timer_timeout()

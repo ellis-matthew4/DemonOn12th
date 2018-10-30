@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/firebolt.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/firebolt.png" type="Texture" id=2]
@@ -88,7 +88,14 @@ _sections_unfolded = [ "Gravity", "Resource", "Trail" ]
 custom_solver_bias = 0.0
 radius = 7.5
 
-[node name="Source" type="RigidBody2D"]
+[sub_resource type="CircleShape2D" id=9]
+
+custom_solver_bias = 0.0
+radius = 14.9457
+
+[node name="Source" type="RigidBody2D" groups=[
+"attack",
+]]
 
 input_pickable = false
 collision_layer = 2
@@ -173,6 +180,25 @@ shadow_filter = 0
 shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
 
+[node name="hitbox" type="Area2D" parent="." index="5"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" index="0"]
+
+shape = SubResource( 9 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_Source_body_entered"]
 
 

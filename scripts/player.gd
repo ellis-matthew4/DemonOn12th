@@ -4,11 +4,12 @@ const UP = Vector2(0,-1)
 const GRAVITY = 20
 const ACCELERATION = 50
 const MAX_SPEED = 200
-const JUMP_HEIGHT = 420
+const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
 const FIREBOLT_SCENE = preload("res://assets/scenes/firebolt.tscn")
 const RUNE_SCENE = preload("res://assets/scenes/rune.tscn")
 const NEXT_CHAR = preload("res://assets/scenes/player_harry.tscn")
+const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 
 var motion = Vector2()
 var jumping = false
@@ -16,12 +17,15 @@ var on_ladder = false
 var left = false
 var cooldown = false
 var crouch = false
+var damaged = false
 
 onready var col = get_node("Collider")
 onready var ocl = get_node("Sprite/LightOccluder2D")
 onready var tilemap = get_tree().current_scene.find_node("midground")
+onready var dmgTimer = $dmgTimer
 
 func _ready():
+	add_to_group("playable_characters")
 	set_process(true)
 	
 func _process(delta):
@@ -38,6 +42,9 @@ func _process(delta):
 				var rn = RUNE_SCENE.instance()
 				tilemap.add_child(rn)
 				rn.global_position = $Sprite/projectilePos.global_position
+	if Input.is_action_just_pressed("ui_pause"):
+		$PauseMenu.show()
+		get_tree().paused = true
 
 func _physics_process(delta):	
 	if on_ladder:
@@ -75,7 +82,15 @@ func _physics_process(delta):
 	else:
 		$Sprite.frame = 0
 		$Sprite.playing = false
-		motion.x = 0
+		if !damaged:
+			motion.x = 0
+		
+	if is_on_floor():
+		if Input.is_action_pressed("ui_up"):
+			motion.y -= JUMP_HEIGHT
+	if Input.is_action_just_released("ui_up"):
+		if motion.y < 0:
+			motion.y *= 0.5;
 		
 	if Input.is_action_just_pressed("ui_switch"):
 		$Sprite.play("crouch")
@@ -92,19 +107,6 @@ func _physics_process(delta):
 		$Sprite.play("walk")
 		crouch = false
 		
-	if not tilemap == null:
-		var id = tilemap.get_cellv(tilemap.world_to_map(position))
-		if id > -1:
-			if tilemap.get_tileset().tile_get_name(id) == "ladder":
-				on_ladder = true
-			else:
-				on_ladder = false
-		else:
-			on_ladder = false
-		
-	if is_on_floor():
-		if Input.is_action_just_pressed("ui_up"):
-			motion.y = -JUMP_HEIGHT
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)
 			
@@ -123,3 +125,26 @@ func swap():
 	get_parent().add_child(x)
 	x.global_position = global_position
 	get_parent().remove_child(self)
+
+func rocketJump(area):
+	if area.BOOST:
+		motion.y = -JUMP_HEIGHT * 1.3
+
+func hitbox_entered(area):
+	if area.has_method("ladder"):
+		on_ladder = true
+
+func hitbox_exited(area):
+	on_ladder = false
+	
+func damage(body, amount):
+	globs.damage(amount)
+	if body.global_position.x - global_position.x > 0:
+		motion = Vector2(-200, -200)
+	else:
+		motion = Vector2(200, -200)
+	dmgTimer.start()
+	damaged = true
+
+func _on_dmgTimer_timeout():
+	damaged = false
