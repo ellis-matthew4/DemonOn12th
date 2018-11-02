@@ -14,13 +14,12 @@ const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 var motion = Vector2()
 var jumping = false
 var on_ladder = false
-var left = false
+var left = true
 var cooldown = false
 var crouch = false
 var damaged = false
+var attacking = false
 
-onready var col = get_node("Collider")
-onready var ocl = get_node("Sprite/LightOccluder2D")
 onready var tilemap = get_tree().current_scene.find_node("midground")
 onready var dmgTimer = $dmgTimer
 
@@ -32,6 +31,8 @@ func _process(delta):
 	if !cooldown:
 		if Input.is_action_just_pressed("ui_attack"):
 			if !crouch:
+				attacking = true
+				$Sprite.play("cast")
 				var fb = FIREBOLT_SCENE.instance()
 				fb.orient(left)
 				tilemap.add_child(fb)
@@ -57,31 +58,27 @@ func _physics_process(delta):
 	else:
 		motion.y += GRAVITY
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") and !crouch:
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
-		$Sprite.flip_h = false
+		$Sprite.flip_h = true
 		if left:
-			$Sprite/projectilePos.position *= Vector2(-1,1)
-		if !crouch:
+			$Sprite/projectilePos.position = Vector2(80,-20)
+		if !attacking:
 			$Sprite.play("walk")
 		$Sprite.playing = true
-		if crouch and left:
-			ocl.rotation = deg2rad(90)
 		left = false
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("ui_left") and !crouch:
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
-		$Sprite.flip_h = true
+		$Sprite.flip_h = false
 		if !left:
-			$Sprite/projectilePos.position *= Vector2(-1,1)
-			if crouch:
-				ocl.rotation = deg2rad(-90)
-		if !crouch:
+			$Sprite/projectilePos.position = Vector2(-80,-20)
+		if !attacking:
 			$Sprite.play("walk")
 		$Sprite.playing = true
 		left = true
 	else:
-		$Sprite.frame = 0
-		$Sprite.playing = false
+		if !attacking:
+			$Sprite.play("idle1")
 		if !damaged:
 			motion.x = 0
 		
@@ -91,19 +88,16 @@ func _physics_process(delta):
 	if Input.is_action_just_released("ui_up"):
 		if motion.y < 0:
 			motion.y *= 0.5;
-		
-	if Input.is_action_just_pressed("ui_switch"):
+	
+	if Input.is_action_pressed("ui_switch"):
 		$Sprite.play("crouch")
-		col.rotation = deg2rad(90)
-		if left:
-			ocl.rotation = deg2rad(-90)
-		else:
-			ocl.rotation = deg2rad(90)
+	
+	if Input.is_action_just_pressed("ui_switch"):
+		$Collider.position.y -= 12
 		crouch = true
 	elif Input.is_action_just_released("ui_switch"):
-		position.y -= 32
-		col.rotation = deg2rad(0)
-		ocl.rotation = deg2rad(0)
+		position.y -= 10
+		$Collider.position.y += 12
 		$Sprite.play("walk")
 		crouch = false
 		
@@ -114,17 +108,10 @@ func _physics_process(delta):
 	pass
 	
 	if Input.is_action_just_pressed("ui_change"):
-		swap()
+		globs.switch_character()
 
 func _on_ProjectileTimer_timeout():
 	cooldown = false
-
-func swap():
-	globs.switch_character()
-	var x = NEXT_CHAR.instance()
-	get_parent().add_child(x)
-	x.global_position = global_position
-	get_parent().remove_child(self)
 
 func rocketJump(area):
 	if area.BOOST:
@@ -148,3 +135,7 @@ func damage(body, amount):
 
 func _on_dmgTimer_timeout():
 	damaged = false
+
+func _on_Sprite_animation_finished():
+	if $Sprite.animation == "cast":
+		attacking = false

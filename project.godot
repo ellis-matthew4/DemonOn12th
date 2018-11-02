@@ -18,6 +18,10 @@ config/icon="res://icon.png"
 
 globs="*res://scripts/globs.gd"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "SMRT" )
+
 [importer_defaults]
 
 texture={

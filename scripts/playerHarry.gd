@@ -133,14 +133,7 @@ func _physics_process(delta):
 	pass
 	
 	if Input.is_action_just_pressed("ui_change"):
-		swap()
-
-func swap():
-	globs.switch_character()
-	var x = NEXT_CHAR.instance()
-	get_parent().add_child(x)
-	x.global_position = global_position
-	get_parent().remove_child(self)
+		globs.switch_character()
 
 func _on_Sprite_animation_finished():
 	if attacking:

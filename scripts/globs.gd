@@ -9,13 +9,21 @@ var SUBSTATE = 0 #Controls the specific dialogues
 var inventory = {}
 var money = 0
 
+onready var johnScene = preload("res://assets/scenes/player_john.tscn")
+onready var harryScene = preload("res://assets/scenes/player_harry.tscn")
+#onready var johnScene = preload("res://assets/scenes/player_charlotte.tscn")
+
+var chars
+
 func _ready():
-	pass
+	chars = [johnScene.instance(), harryScene.instance()]#, charlotteScene.instance()]
 
 func unlock_charlotte():
 	char_unlocked = true
 	
 func switch_character():
+	var charSlot = get_tree().current_scene.find_node("Characters")
+	var current = charSlot.get_child(0)
 	if char_unlocked:
 		if selected_character < 2:
 			selected_character += 1
@@ -26,6 +34,8 @@ func switch_character():
 			selected_character = 1
 		else:
 			selected_character = 0
+	charSlot.remove_child(current)
+	charSlot.add_child(chars[selected_character])
 	
 func damage(amount):
 	hp[selected_character] += amount
