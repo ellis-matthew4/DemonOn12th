@@ -94,29 +94,10 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="0"]
+[node name="Camera2D" type="Camera2D" parent="." index="0"]
 
-position = Vector2( -1.94893, 0.587189 )
-occluder = SubResource( 1 )
-light_mask = 1
-_sections_unfolded = [ "Transform" ]
-
-[node name="Sprite" type="AnimatedSprite" parent="." index="1"]
-
-position = Vector2( -1.94893, 0.587189 )
+position = Vector2( -1.94893, -14.4128 )
 scale = Vector2( 0.25, 0.25 )
-frames = SubResource( 2 )
-animation = "idle1"
-_sections_unfolded = [ "Transform" ]
-
-[node name="projectilePos" type="Position2D" parent="Sprite" index="0"]
-
-position = Vector2( -80, -20 )
-_sections_unfolded = [ "Transform" ]
-
-[node name="Camera2D" type="Camera2D" parent="Sprite" index="1"]
-
-position = Vector2( 0, -60 )
 anchor_mode = 1
 rotating = false
 current = true
@@ -140,21 +121,41 @@ editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
 
-[node name="Collider" type="CollisionShape2D" parent="." index="2"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="1"]
+
+position = Vector2( -1.94893, 0.587189 )
+occluder = SubResource( 1 )
+light_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="2"]
+
+position = Vector2( -1.94893, 0.587189 )
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 2 )
+animation = "idle1"
+_sections_unfolded = [ "Transform" ]
+
+[node name="projectilePos" type="Position2D" parent="Sprite" index="0"]
+
+position = Vector2( -80, -20 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Collider" type="CollisionShape2D" parent="." index="3"]
 
 position = Vector2( -4.57764e-005, 0 )
 shape = SubResource( 3 )
 
-[node name="ProjectileTimer" type="Timer" parent="." index="3"]
+[node name="ProjectileTimer" type="Timer" parent="." index="4"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="healthBar" parent="." index="4" instance=ExtResource( 36 )]
+[node name="healthBar" parent="." index="5" instance=ExtResource( 36 )]
 
-[node name="boostBox" type="Area2D" parent="." index="5"]
+[node name="boostBox" type="Area2D" parent="." index="6"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -173,7 +174,7 @@ position = Vector2( -2.73084, 42.9968 )
 shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="hitbox" type="Area2D" parent="." index="6"]
+[node name="hitbox" type="Area2D" parent="." index="7"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -188,14 +189,14 @@ audio_bus_name = "Master"
 position = Vector2( 0.174828, 1.74825 )
 shape = SubResource( 5 )
 
-[node name="dmgTimer" type="Timer" parent="." index="7"]
+[node name="dmgTimer" type="Timer" parent="." index="8"]
 
 process_mode = 1
 wait_time = 0.3
 one_shot = false
 autostart = false
 
-[node name="PauseMenu" parent="." index="8" instance=ExtResource( 37 )]
+[node name="PauseMenu" parent="." index="9" instance=ExtResource( 37 )]
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 

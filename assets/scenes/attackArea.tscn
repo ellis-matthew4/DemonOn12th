@@ -6,8 +6,8 @@
 [sub_resource type="SegmentShape2D" id=1]
 
 custom_solver_bias = 0.0
-a = Vector2( 0, 16 )
-b = Vector2( 0, -16 )
+a = Vector2( 0, 128 )
+b = Vector2( 0, -128 )
 
 [node name="attackArea" type="Node2D"]
 

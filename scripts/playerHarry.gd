@@ -7,7 +7,6 @@ const MAX_SPEED = 200
 const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
 const ATK = preload("res://assets/scenes/attackArea.tscn")
-var NEXT_CHAR
 
 var motion = Vector2()
 var jumping = false
@@ -22,17 +21,10 @@ var thrust = false
 var friction = false
 
 onready var col = get_node("Collider")
-onready var ocl = get_node("Sprite/LightOccluder2D")
 onready var tilemap = get_tree().current_scene.find_node("midground")
 onready var dmgTimer = $dmgTimer
 
 func _ready():
-	add_to_group("playable_characters")
-	if globs.char_unlocked:
-		#NEXT_CHAR = preload("res://assets/scenes/player_charlotte.tscn")
-		pass
-	else:
-		NEXT_CHAR = preload("res://assets/scenes/player_john.tscn")
 	set_process(true)
 	
 func _process(delta):
@@ -58,33 +50,23 @@ func _physics_process(delta):
 	else:
 		motion.y += GRAVITY
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") and !crouch:
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
-		$Sprite.flip_h = false
-		$atk.flip_h = false
-		if left:
-			$Sprite/swordPos.position = Vector2(25, 4)
-		if !crouch and !attacking:
-			$Sprite.play("walkRight")
-		$Sprite.playing = true
-		if crouch and left:
-			ocl.rotation = deg2rad(90)
-		left = false
-	elif Input.is_action_pressed("ui_left"):
-		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 		$Sprite.flip_h = true
-		$atk.flip_h = true
-		if !left:
-			$Sprite/swordPos.position = Vector2(-25, 4)
-			if crouch:
-				ocl.rotation = deg2rad(-90)
+		$Sprite/swordPos.position = Vector2(72, -26)
 		if !crouch and !attacking:
-			$Sprite.play("walkLeft")
-		$Sprite.playing = true
+			$Sprite.play("walk")
+		left = false
+	elif Input.is_action_pressed("ui_left") and !crouch:
+		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
+		$Sprite.flip_h = false
+		$Sprite/swordPos.position = Vector2(-72, -26)
+		if !crouch and !attacking:
+			$Sprite.play("walk")
 		left = true
 	else:
-		if !attacking:
-			$Sprite.playing = false
+		if !attacking and !crouch:
+			$Sprite.play("idle")
 		if !friction:
 			if !damaged:
 				motion.x = 0
@@ -99,22 +81,11 @@ func _physics_process(delta):
 		$attackTimer.wait_time = 0.2
 		
 	if Input.is_action_just_pressed("ui_switch"):
-		col.rotation = deg2rad(90)
-		if left:
-			$Sprite.play("crouchLeft")
-			ocl.rotation = deg2rad(-90)
-		else:
-			$Sprite.play("crouchRight")
-			ocl.rotation = deg2rad(90)
+		$Sprite.play("crouch")
+		$Sprite/Particles2D.emitting = true
 		crouch = true
 	elif Input.is_action_just_released("ui_switch"):
-		position.y -= 32
-		col.rotation = deg2rad(0)
-		ocl.rotation = deg2rad(0)
-		if left:
-			$Sprite.play("walkLeft")
-		else:
-			$Sprite.play("walkRight")
+		$Sprite/Particles2D.emitting = false
 		crouch = false
 				
 	if Input.is_action_just_pressed("ui_page_down"):
@@ -135,36 +106,30 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_change"):
 		globs.switch_character()
 
-func _on_Sprite_animation_finished():
+func _on_animation_finished():
 	if attacking:
 		attacking = false
-		$atk.visible = false
-		$atk.playing = false
-		$atk.frame = 0
 		
 func attack():
 	attacking = true
-	$atk.frame = 0
-	$atk.visible = true
 	var a = ATK.instance()
 	a.damage = 2
 	$Sprite/swordPos.add_child(a)
 	
 	if combo == 0:
 		combo = 1
-		$atk.play("swing")
+		$Sprite.play("swing")
 		$comboTimer.stop(); $comboTimer.start()
 	elif combo == 1:
 		combo = 2
-		$atk.play("uppercut")
+		$Sprite.play("uppercut")
 		$comboTimer.stop(); $comboTimer.start()
 	elif combo == 2:
 		combo = 0
-		$atk.play("thrust")
+		$Sprite.play("thrust")
 		friction = true
 		thrust = true
 		$attackTimer.start()
-	$atk.playing = true
 
 func _on_frictionTimer_timeout():
 	friction = false

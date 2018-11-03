@@ -8,7 +8,6 @@ const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
 const FIREBOLT_SCENE = preload("res://assets/scenes/firebolt.tscn")
 const RUNE_SCENE = preload("res://assets/scenes/rune.tscn")
-const NEXT_CHAR = preload("res://assets/scenes/player_harry.tscn")
 const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 
 var motion = Vector2()

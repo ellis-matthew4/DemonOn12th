@@ -34,8 +34,11 @@ func switch_character():
 			selected_character = 1
 		else:
 			selected_character = 0
+	var k = chars[selected_character]
+	var p = current.global_position
 	charSlot.remove_child(current)
-	charSlot.add_child(chars[selected_character])
+	charSlot.add_child(k)
+	k.global_position = p	
 	
 func damage(amount):
 	hp[selected_character] += amount
