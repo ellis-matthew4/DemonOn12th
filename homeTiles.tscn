@@ -488,10 +488,10 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="tile20" type="Sprite" parent="." index="27"]
 
-position = Vector2( 497.016, 199.557 )
+position = Vector2( 375.533, 405.382 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 224, 64, 32, 64 )
+region_rect = Rect2( 224, 192, 64, 96 )
 _sections_unfolded = [ "Animation", "Region" ]
 
 [node name="tile27" type="Sprite" parent="." index="28"]

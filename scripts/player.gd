@@ -18,6 +18,8 @@ var cooldown = false
 var crouch = false
 var damaged = false
 var attacking = false
+var can_jump = true
+var temp = false
 
 onready var tilemap = get_tree().current_scene.find_node("midground")
 onready var dmgTimer = $dmgTimer
@@ -81,12 +83,26 @@ func _physics_process(delta):
 		if !damaged:
 			motion.x = 0
 		
-	if is_on_floor():
-		if Input.is_action_pressed("ui_up"):
+	if can_jump:
+		if Input.is_action_just_pressed("ui_up"):
 			motion.y -= JUMP_HEIGHT
+			can_jump = false
+			temp = true
 	if Input.is_action_just_released("ui_up"):
 		if motion.y < 0:
 			motion.y *= 0.5;
+			
+	if is_on_floor():
+		can_jump = true
+		temp = false
+	else:
+		if !temp:
+			temp = true
+			var k = Timer.new()
+			k.wait_time = 0.2
+			k.connect("timeout", self, "stopJump", [k])
+			add_child(k)
+			k.start()
 	
 	if Input.is_action_pressed("ui_switch"):
 		$Sprite.play("crouch")
@@ -113,8 +129,8 @@ func _on_ProjectileTimer_timeout():
 	cooldown = false
 
 func rocketJump(area):
-	if area.BOOST:
-		motion.y = -JUMP_HEIGHT * 1.3
+	 if area.has_method("boost"):
+			motion.y = -JUMP_HEIGHT * 1.3
 
 func hitbox_entered(area):
 	if area.has_method("ladder"):
@@ -138,3 +154,8 @@ func _on_dmgTimer_timeout():
 func _on_Sprite_animation_finished():
 	if $Sprite.animation == "cast":
 		attacking = false
+
+func stopJump(k):
+	temp = false
+	can_jump = false
+	remove_child(k)

@@ -15,6 +15,8 @@ var left = false
 var crouch = false
 var attacking = false
 var damaged = false
+var can_jump = true
+var temp = false
 
 var combo = 0
 var thrust = false
@@ -70,16 +72,7 @@ func _physics_process(delta):
 		if !friction:
 			if !damaged:
 				motion.x = 0
-			
-	if is_on_floor():
-		if Input.is_action_pressed("ui_up"):
-			motion.y -= JUMP_HEIGHT
-		if friction:
-			motion.x = lerp(motion.x, 0, 0.2)
-		$attackTimer.wait_time = 0.1
-	else:
-		$attackTimer.wait_time = 0.2
-		
+					
 	if Input.is_action_just_pressed("ui_switch"):
 		$Sprite.play("crouch")
 		$Sprite/Particles2D.emitting = true
@@ -91,9 +84,28 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)
 		
+	if can_jump:
+		if Input.is_action_just_pressed("ui_up"):
+			motion.y -= JUMP_HEIGHT
+		if friction:
+			motion.x = lerp(motion.x, 0, 0.2)
 	if Input.is_action_just_released("ui_up"):
 		if motion.y < 0:
 			motion.y *= 0.5;
+			
+	if is_on_floor():
+		can_jump = true
+		temp = false
+		$attackTimer.wait_time = 0.1
+	else:
+		$attackTimer.wait_time = 0.2
+		if !temp:
+			temp = true
+			var k = Timer.new()
+			k.wait_time = 0.2
+			k.connect("timeout", self, "stopJump", [k])
+			add_child(k)
+			k.start()
 		
 	if thrust:
 		if left:
@@ -156,3 +168,8 @@ func damage(body, amount):
 
 func _on_dmgTimer_timeout():
 	damaged = false
+	
+func stopJump(k):
+	temp = false
+	can_jump = false
+	remove_child(k)
