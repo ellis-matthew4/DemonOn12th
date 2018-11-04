@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/char/john/john_crouch_00.png" type="Texture" id=2]
@@ -35,8 +35,13 @@
 [ext_resource path="res://assets/char/john/john_cast_4.png" type="Texture" id=33]
 [ext_resource path="res://assets/char/john/john_cast_5.png" type="Texture" id=34]
 [ext_resource path="res://assets/char/john/john_cast_6.png" type="Texture" id=35]
-[ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=36]
-[ext_resource path="res://assets/scenes/PauseMenu.tscn" type="PackedScene" id=37]
+[ext_resource path="res://assets/char/john/john_jump_0.png" type="Texture" id=36]
+[ext_resource path="res://assets/char/john/john_jump_1.png" type="Texture" id=37]
+[ext_resource path="res://assets/char/john/john_jump_2.png" type="Texture" id=38]
+[ext_resource path="res://assets/char/john/john_jump_3.png" type="Texture" id=39]
+[ext_resource path="res://assets/char/john/john_jump_4.png" type="Texture" id=40]
+[ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=41]
+[ext_resource path="res://assets/scenes/PauseMenu.tscn" type="PackedScene" id=42]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 
@@ -66,6 +71,11 @@ animations = [ {
 "loop": true,
 "name": "cast",
 "speed": 25.0
+}, {
+"frames": [ ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
+"loop": true,
+"name": "jump",
+"speed": 25.0
 } ]
 _sections_unfolded = [ "Resource" ]
 
@@ -85,7 +95,7 @@ length = 32.0
 custom_solver_bias = 0.0
 extents = Vector2( 17.968, 47.9633 )
 
-[node name="player_john" type="KinematicBody2D" index="0"]
+[node name="player_john" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -94,41 +104,14 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="Camera2D" type="Camera2D" parent="." index="0"]
-
-position = Vector2( -1.94893, -14.4128 )
-scale = Vector2( 0.25, 0.25 )
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 0.6, 0.6 )
-limit_left = -100000
-limit_top = -100000
-limit_right = 100000
-limit_bottom = 100000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.1
-drag_margin_right = 0.2
-drag_margin_bottom = 0.1
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="1"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="0"]
 
 position = Vector2( -1.94893, 0.587189 )
 occluder = SubResource( 1 )
 light_mask = 1
 _sections_unfolded = [ "Transform" ]
 
-[node name="Sprite" type="AnimatedSprite" parent="." index="2"]
+[node name="Sprite" type="AnimatedSprite" parent="." index="1"]
 
 position = Vector2( -1.94893, 0.587189 )
 scale = Vector2( 0.25, 0.25 )
@@ -141,21 +124,21 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( -80, -20 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Collider" type="CollisionShape2D" parent="." index="3"]
+[node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( -4.57764e-005, 0 )
 shape = SubResource( 3 )
 
-[node name="ProjectileTimer" type="Timer" parent="." index="4"]
+[node name="ProjectileTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="healthBar" parent="." index="5" instance=ExtResource( 36 )]
+[node name="healthBar" parent="." index="4" instance=ExtResource( 41 )]
 
-[node name="boostBox" type="Area2D" parent="." index="6"]
+[node name="boostBox" type="Area2D" parent="." index="5"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -174,7 +157,7 @@ position = Vector2( -2.73084, 32.7772 )
 shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="hitbox" type="Area2D" parent="." index="7"]
+[node name="hitbox" type="Area2D" parent="." index="6"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -189,14 +172,14 @@ audio_bus_name = "Master"
 position = Vector2( 0.174828, 1.74825 )
 shape = SubResource( 5 )
 
-[node name="dmgTimer" type="Timer" parent="." index="8"]
+[node name="dmgTimer" type="Timer" parent="." index="7"]
 
 process_mode = 1
 wait_time = 0.3
 one_shot = false
 autostart = false
 
-[node name="PauseMenu" parent="." index="9" instance=ExtResource( 37 )]
+[node name="PauseMenu" parent="." index="8" instance=ExtResource( 42 )]
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 

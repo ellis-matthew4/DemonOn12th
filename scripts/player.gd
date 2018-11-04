@@ -64,7 +64,7 @@ func _physics_process(delta):
 		$Sprite.flip_h = true
 		if left:
 			$Sprite/projectilePos.position = Vector2(80,-20)
-		if !attacking:
+		if !attacking and !jumping:
 			$Sprite.play("walk")
 		$Sprite.playing = true
 		left = false
@@ -73,19 +73,20 @@ func _physics_process(delta):
 		$Sprite.flip_h = false
 		if !left:
 			$Sprite/projectilePos.position = Vector2(-80,-20)
-		if !attacking:
+		if !attacking and !jumping:
 			$Sprite.play("walk")
 		$Sprite.playing = true
 		left = true
 	else:
-		if !attacking:
+		if !attacking and !jumping:
 			$Sprite.play("idle1")
 		if !damaged:
 			motion.x = 0
 		
 	if can_jump:
 		if Input.is_action_just_pressed("ui_up"):
-			motion.y -= JUMP_HEIGHT
+			jumping = true
+			motion.y = -JUMP_HEIGHT
 			can_jump = false
 			temp = true
 	if Input.is_action_just_released("ui_up"):
@@ -95,7 +96,10 @@ func _physics_process(delta):
 	if is_on_floor():
 		can_jump = true
 		temp = false
+		if jumping:
+			jumping = false
 	else:
+		$Sprite.play("jump")
 		if !temp:
 			temp = true
 			var k = Timer.new()

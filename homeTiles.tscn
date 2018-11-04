@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/tiles/home_tiles.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 8.0334, 16.2427 )
 
 [node name="Node" type="Node"]
 
@@ -14,6 +19,7 @@ _sections_unfolded = [ "Region" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="tile1" index="0"]
 
+position = Vector2( -8.01846, -7.62939e-006 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -22,10 +28,9 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tile1/StaticBody2D" index="0"]
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="tile1/StaticBody2D" index="0"]
 
-build_mode = 0
-polygon = PoolVector2Array( -16.2631, -16.278, -16.0694, 16.0719, 0.00865173, 16.0719, -0.185059, -16.0842 )
+shape = SubResource( 1 )
 
 [node name="tile2" type="Sprite" parent="." index="1"]
 
@@ -248,7 +253,6 @@ _sections_unfolded = [ "Animation", "Region" ]
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="tile9" index="0"]
 
-position = Vector2( -0.0621643, 0.713654 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -256,11 +260,12 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tile9/StaticBody2D4" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.9571, -16.7285, -15.9417, 15.1906, 16.0208, 15.1906, 16.0463, -16.7639 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 
 [node name="block_partial" type="Sprite" parent="." index="16"]
 
@@ -284,7 +289,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="block_partial/StaticBody2D4" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -16.0626, -16.1519, -15.7146, 15.9752, 16.0646, 15.9752, 15.9486, -16.2679 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 one_way_collision = true
 _sections_unfolded = [ "Transform" ]
 
@@ -338,6 +343,7 @@ _sections_unfolded = [ "Animation", "Region" ]
 
 [node name="tile14" type="Sprite" parent="." index="21"]
 
+editor/display_folded = true
 position = Vector2( 213.008, 201.543 )
 texture = ExtResource( 1 )
 region_enabled = true
@@ -358,11 +364,12 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="tile14/StaticBody2D5" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.8661, -15.9156, -15.8661, 16.0872, 16.0341, 16.0246, 15.9088, -15.9782 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="tile15" type="Sprite" parent="." index="22"]
 
+editor/display_folded = true
 position = Vector2( 261.468, 201.543 )
 texture = ExtResource( 1 )
 region_enabled = true
@@ -383,10 +390,64 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="tile15/StaticBody2D6" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.7562, -15.9782, -15.9442, 15.9302, 15.9561, 15.9302, 15.8934, -15.9782 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="tile16" type="Sprite" parent="." index="23"]
+[node name="thin0" type="Sprite" parent="." index="23"]
+
+editor/display_folded = true
+position = Vector2( 80.4039, 343.918 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 192, 32, 32 )
+_sections_unfolded = [ "Animation", "Region" ]
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="thin0" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="thin0/StaticBody2D6" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -8.05152, -14.026, -8.02962, -9.9267, 15.9048, -9.9267, 15.9643, -13.9753 )
+one_way_collision = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="thin1" type="Sprite" parent="." index="24"]
+
+editor/display_folded = true
+position = Vector2( 118.935, 344.583 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 192, 192, 32, 32 )
+_sections_unfolded = [ "Animation", "Region" ]
+
+[node name="StaticBody2D6" type="StaticBody2D" parent="thin1" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="thin1/StaticBody2D6" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -15.9986, -13.9959, -15.9986, -9.96045, 15.9048, -9.9267, 15.9643, -13.9753 )
+one_way_collision = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="tile16" type="Sprite" parent="." index="25"]
 
 position = Vector2( 311.517, 201.146 )
 texture = ExtResource( 1 )
@@ -408,10 +469,10 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="tile16/StaticBody2D7" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.9396, -15.9491, -15.877, 16.0138, 16.0233, 16.0138, 15.9606, -16.0117 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="tile17" type="Sprite" parent="." index="24"]
+[node name="tile17" type="Sprite" parent="." index="26"]
 
 position = Vector2( 363.155, 199.955 )
 texture = ExtResource( 1 )
@@ -433,10 +494,10 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="tile17/StaticBody2D8" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.9812, -15.9929, -15.9994, 15.9514, 16.0262, 15.9514, 16.0031, -15.9929 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="tile18" type="Sprite" parent="." index="25"]
+[node name="tile18" type="Sprite" parent="." index="27"]
 
 position = Vector2( 408.834, 199.557 )
 texture = ExtResource( 1 )
@@ -458,10 +519,10 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="tile18/StaticBody2D9" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.973, -15.9825, -16.0659, 15.9733, 15.9596, 15.9107, 16.0038, -15.9825 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="tile19" type="Sprite" parent="." index="26"]
+[node name="tile19" type="Sprite" parent="." index="28"]
 
 position = Vector2( 452.131, 200.749 )
 texture = ExtResource( 1 )
@@ -483,10 +544,10 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="tile19/StaticBody2D10" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.9675, -15.982, -15.9677, 15.8468, 16.0579, 15.8468, 15.972, -15.982 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="tile20" type="Sprite" parent="." index="27"]
+[node name="tile20" type="Sprite" parent="." index="29"]
 
 position = Vector2( 375.533, 405.382 )
 texture = ExtResource( 1 )
@@ -494,7 +555,7 @@ region_enabled = true
 region_rect = Rect2( 224, 192, 64, 96 )
 _sections_unfolded = [ "Animation", "Region" ]
 
-[node name="tile27" type="Sprite" parent="." index="28"]
+[node name="tile27" type="Sprite" parent="." index="30"]
 
 position = Vector2( 539.646, 200.725 )
 texture = ExtResource( 1 )
@@ -502,7 +563,7 @@ region_enabled = true
 region_rect = Rect2( 224, 128, 32, 32 )
 _sections_unfolded = [ "Animation", "Region" ]
 
-[node name="tile42" type="Sprite" parent="." index="29"]
+[node name="tile42" type="Sprite" parent="." index="31"]
 
 position = Vector2( 541.798, 248.673 )
 texture = ExtResource( 1 )
@@ -510,7 +571,7 @@ region_enabled = true
 region_rect = Rect2( 224, 160, 32, 32 )
 _sections_unfolded = [ "Animation", "Region" ]
 
-[node name="tile21" type="Sprite" parent="." index="30"]
+[node name="tile21" type="Sprite" parent="." index="32"]
 
 position = Vector2( 212.213, 247.223 )
 texture = ExtResource( 1 )
@@ -518,7 +579,7 @@ region_enabled = true
 region_rect = Rect2( 32, 96, 32, 32 )
 _sections_unfolded = [ "Animation", "Region" ]
 
-[node name="tile22" type="Sprite" parent="." index="31"]
+[node name="tile22" type="Sprite" parent="." index="33"]
 
 position = Vector2( 260.673, 246.429 )
 texture = ExtResource( 1 )
@@ -526,112 +587,112 @@ region_enabled = true
 region_rect = Rect2( 64, 96, 32, 32 )
 _sections_unfolded = [ "Animation", "Region" ]
 
-[node name="tile23" type="Sprite" parent="." index="32"]
+[node name="tile23" type="Sprite" parent="." index="34"]
 
 position = Vector2( 311.12, 246.031 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 96, 96, 32, 32 )
 
-[node name="tile28" type="Sprite" parent="." index="33"]
+[node name="tile28" type="Sprite" parent="." index="35"]
 
 position = Vector2( 251.262, 285.45 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 64, 128, 32, 32 )
 
-[node name="tile29" type="Sprite" parent="." index="34"]
+[node name="tile29" type="Sprite" parent="." index="36"]
 
 position = Vector2( 310.828, 285.45 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 96, 128, 32, 32 )
 
-[node name="tile30" type="Sprite" parent="." index="35"]
+[node name="tile30" type="Sprite" parent="." index="37"]
 
 position = Vector2( 248.342, 328.372 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 64, 160, 32, 32 )
 
-[node name="tile31" type="Sprite" parent="." index="36"]
+[node name="tile31" type="Sprite" parent="." index="38"]
 
 position = Vector2( 300.9, 326.912 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 96, 160, 32, 32 )
 
-[node name="tile32" type="Sprite" parent="." index="37"]
+[node name="tile32" type="Sprite" parent="." index="39"]
 
 position = Vector2( 345.867, 327.496 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 128, 160, 32, 32 )
 
-[node name="tile33" type="Sprite" parent="." index="38"]
+[node name="tile33" type="Sprite" parent="." index="40"]
 
 position = Vector2( 356.67, 290.121 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 128, 128, 32, 32 )
 
-[node name="tile34" type="Sprite" parent="." index="39"]
+[node name="tile34" type="Sprite" parent="." index="41"]
 
 position = Vector2( 399.593, 290.705 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 160, 128, 32, 32 )
 
-[node name="tile35" type="Sprite" parent="." index="40"]
+[node name="tile35" type="Sprite" parent="." index="42"]
 
 position = Vector2( 395.797, 328.08 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 160, 160, 32, 32 )
 
-[node name="tile36" type="Sprite" parent="." index="41"]
+[node name="tile36" type="Sprite" parent="." index="43"]
 
 position = Vector2( 446.603, 291.289 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 192, 128, 32, 32 )
 
-[node name="tile37" type="Sprite" parent="." index="42"]
+[node name="tile37" type="Sprite" parent="." index="44"]
 
 position = Vector2( 442.515, 330.708 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 192, 160, 32, 32 )
 
-[node name="tile39" type="Sprite" parent="." index="43"]
+[node name="tile39" type="Sprite" parent="." index="45"]
 
 position = Vector2( 495.688, 291.674 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 192, 32, 32 )
 
-[node name="tile40" type="Sprite" parent="." index="44"]
+[node name="tile40" type="Sprite" parent="." index="46"]
 
 position = Vector2( 497.224, 325.79 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 32, 224, 32, 32 )
 
-[node name="tile41" type="Sprite" parent="." index="45"]
+[node name="tile41" type="Sprite" parent="." index="47"]
 
 position = Vector2( 521.198, 328.556 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 224, 32, 32 )
 
-[node name="tile43" type="Sprite" parent="." index="46"]
+[node name="tile43" type="Sprite" parent="." index="48"]
 
 position = Vector2( 275.313, 375.889 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 64, 192, 96, 64 )
 
-[node name="tile38" type="Sprite" parent="." index="47"]
+[node name="tile38" type="Sprite" parent="." index="49"]
 
 position = Vector2( 102.18, 288.249 )
 texture = ExtResource( 1 )
@@ -653,7 +714,7 @@ bounce = 0.0
 build_mode = 0
 polygon = PoolVector2Array( -15.9782, 15.9857, 16.0002, -16.0008, 16.0114, 15.9954 )
 
-[node name="tile24" type="Sprite" parent="." index="48"]
+[node name="tile24" type="Sprite" parent="." index="50"]
 
 position = Vector2( 365.968, 246.031 )
 texture = ExtResource( 1 )
@@ -673,9 +734,9 @@ bounce = 0.0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tile24/StaticBody2D" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.8445, -16.0176, 15.8909, -15.9482, 16.0298, 16.0649, -16.0528, 16.0649 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 
-[node name="tile25" type="Sprite" parent="." index="49"]
+[node name="tile25" type="Sprite" parent="." index="51"]
 
 position = Vector2( 408.891, 247.199 )
 texture = ExtResource( 1 )
@@ -696,9 +757,9 @@ bounce = 0.0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tile25/StaticBody2D" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.8445, -16.0176, 15.8909, -15.9482, 16.0298, 16.0649, -16.0528, 16.0649 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 
-[node name="tile26" type="Sprite" parent="." index="50"]
+[node name="tile26" type="Sprite" parent="." index="52"]
 
 position = Vector2( 452.689, 247.491 )
 texture = ExtResource( 1 )
@@ -719,6 +780,6 @@ bounce = 0.0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="tile26/StaticBody2D" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -15.8445, -16.0176, 15.8909, -15.9482, 16.0298, 16.0649, -16.0528, 16.0649 )
+polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 
 

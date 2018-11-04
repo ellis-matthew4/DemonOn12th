@@ -56,18 +56,18 @@ func _physics_process(delta):
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 		$Sprite.flip_h = true
 		$Sprite/swordPos.position = Vector2(72, -26)
-		if !crouch and !attacking:
+		if !crouch and !attacking and !jumping:
 			$Sprite.play("walk")
 		left = false
 	elif Input.is_action_pressed("ui_left") and !crouch:
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 		$Sprite.flip_h = false
 		$Sprite/swordPos.position = Vector2(-72, -26)
-		if !crouch and !attacking:
+		if !crouch and !attacking and !jumping:
 			$Sprite.play("walk")
 		left = true
 	else:
-		if !attacking and !crouch:
+		if !attacking and !crouch and !jumping:
 			$Sprite.play("idle")
 		if !friction:
 			if !damaged:
@@ -86,7 +86,10 @@ func _physics_process(delta):
 		
 	if can_jump:
 		if Input.is_action_just_pressed("ui_up"):
-			motion.y -= JUMP_HEIGHT
+			jumping = true
+			can_jump = false
+			temp = true
+			motion.y = -JUMP_HEIGHT
 		if friction:
 			motion.x = lerp(motion.x, 0, 0.2)
 	if Input.is_action_just_released("ui_up"):
@@ -96,6 +99,8 @@ func _physics_process(delta):
 	if is_on_floor():
 		can_jump = true
 		temp = false
+		if jumping:
+			jumping = false
 		$attackTimer.wait_time = 0.1
 	else:
 		$attackTimer.wait_time = 0.2
@@ -142,6 +147,9 @@ func attack():
 		friction = true
 		thrust = true
 		$attackTimer.start()
+		
+	if temp:
+		$Sprite.play("jump")
 
 func _on_frictionTimer_timeout():
 	friction = false
