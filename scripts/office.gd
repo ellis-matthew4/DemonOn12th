@@ -2,13 +2,13 @@ extends Node
 
 onready var CharacterSlot = get_node("midground/Characters")
 const start = Vector2(144,575)
-const player = preload("res://assets/scenes/player_john.tscn")
+var player
 const PATH = "res://office.tscn"
 
 func _ready():
+	player = globs.get_character()
 	CharacterSlot.global_position = start
-	var p = player.instance()
-	CharacterSlot.add_child(p)
+	CharacterSlot.add_child(player)
 	set_process(true)
 	
 func _process(delta):

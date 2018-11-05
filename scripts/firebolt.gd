@@ -3,6 +3,7 @@ extends RigidBody2D
 var FIREBALL_SPEED = 300
 const EXPLOSION = preload("res://assets/scenes/explosion.tscn")
 var damage = 2
+const BOOST = false
 
 func _ready():
 	set_process(true)

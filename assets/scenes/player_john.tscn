@@ -1,148 +1,99 @@
-[gd_scene load_steps=92 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
-[ext_resource path="res://assets/char/john/john_crouch_0.png" type="Texture" id=2]
-[ext_resource path="res://assets/char/john/john_crouch_1.png" type="Texture" id=3]
-[ext_resource path="res://assets/char/john/john_crouch_2.png" type="Texture" id=4]
-[ext_resource path="res://assets/char/john/john_crouch_3.png" type="Texture" id=5]
-[ext_resource path="res://assets/char/john/john_crouch_4.png" type="Texture" id=6]
-[ext_resource path="res://assets/char/john/john_crouch_5.png" type="Texture" id=7]
-[ext_resource path="res://assets/char/john/john_crouch_6.png" type="Texture" id=8]
-[ext_resource path="res://assets/char/john/john_idle2_00.png" type="Texture" id=9]
-[ext_resource path="res://assets/char/john/john_idle2_01.png" type="Texture" id=10]
-[ext_resource path="res://assets/char/john/john_idle2_02.png" type="Texture" id=11]
-[ext_resource path="res://assets/char/john/john_idle2_03.png" type="Texture" id=12]
-[ext_resource path="res://assets/char/john/john_idle2_04.png" type="Texture" id=13]
-[ext_resource path="res://assets/char/john/john_idle2_05.png" type="Texture" id=14]
-[ext_resource path="res://assets/char/john/john_idle2_06.png" type="Texture" id=15]
-[ext_resource path="res://assets/char/john/john_idle2_07.png" type="Texture" id=16]
-[ext_resource path="res://assets/char/john/john_idle2_08.png" type="Texture" id=17]
-[ext_resource path="res://assets/char/john/john_idle2_09.png" type="Texture" id=18]
-[ext_resource path="res://assets/char/john/john_idle2_10.png" type="Texture" id=19]
-[ext_resource path="res://assets/char/john/john_idle2_11.png" type="Texture" id=20]
-[ext_resource path="res://assets/char/john/john_idle2_12.png" type="Texture" id=21]
-[ext_resource path="res://assets/char/john/john_idle2_13.png" type="Texture" id=22]
-[ext_resource path="res://assets/char/john/john_idle2_14.png" type="Texture" id=23]
-[ext_resource path="res://assets/char/john/john_idle2_15.png" type="Texture" id=24]
-[ext_resource path="res://assets/char/john/john_idle2_16.png" type="Texture" id=25]
-[ext_resource path="res://assets/char/john/john_idle2_17.png" type="Texture" id=26]
-[ext_resource path="res://assets/char/john/john_idle2_18.png" type="Texture" id=27]
-[ext_resource path="res://assets/char/john/john_idle2_19.png" type="Texture" id=28]
-[ext_resource path="res://assets/char/john/john_idle2_20.png" type="Texture" id=29]
-[ext_resource path="res://assets/char/john/john_idle2_21.png" type="Texture" id=30]
-[ext_resource path="res://assets/char/john/john_idle2_22.png" type="Texture" id=31]
-[ext_resource path="res://assets/char/john/john_idle2_23.png" type="Texture" id=32]
-[ext_resource path="res://assets/char/john/john_idle2_24.png" type="Texture" id=33]
-[ext_resource path="res://assets/char/john/john_jump_00.png" type="Texture" id=34]
-[ext_resource path="res://assets/char/john/john_jump_01.png" type="Texture" id=35]
-[ext_resource path="res://assets/char/john/john_jump_02.png" type="Texture" id=36]
-[ext_resource path="res://assets/char/john/john_jump_03.png" type="Texture" id=37]
-[ext_resource path="res://assets/char/john/john_jump_04.png" type="Texture" id=38]
-[ext_resource path="res://assets/char/john/john_jump_05.png" type="Texture" id=39]
-[ext_resource path="res://assets/char/john/john_jump_06.png" type="Texture" id=40]
-[ext_resource path="res://assets/char/john/john_walk_00.png" type="Texture" id=41]
-[ext_resource path="res://assets/char/john/john_walk_01.png" type="Texture" id=42]
-[ext_resource path="res://assets/char/john/john_walk_02.png" type="Texture" id=43]
-[ext_resource path="res://assets/char/john/john_walk_03.png" type="Texture" id=44]
-[ext_resource path="res://assets/char/john/john_walk_04.png" type="Texture" id=45]
-[ext_resource path="res://assets/char/john/john_walk_05.png" type="Texture" id=46]
-[ext_resource path="res://assets/char/john/john_walk_06.png" type="Texture" id=47]
-[ext_resource path="res://assets/char/john/john_walk_07.png" type="Texture" id=48]
-[ext_resource path="res://assets/char/john/john_walk_08.png" type="Texture" id=49]
-[ext_resource path="res://assets/char/john/john_walk_09.png" type="Texture" id=50]
-[ext_resource path="res://assets/char/john/john_walk_10.png" type="Texture" id=51]
-[ext_resource path="res://assets/char/john/john_walk_11.png" type="Texture" id=52]
-[ext_resource path="res://assets/char/john/john_walk_12.png" type="Texture" id=53]
-[ext_resource path="res://assets/char/john/john_idle1_01.png" type="Texture" id=54]
-[ext_resource path="res://assets/char/john/john_idle1_02.png" type="Texture" id=55]
-[ext_resource path="res://assets/char/john/john_idle1_03.png" type="Texture" id=56]
-[ext_resource path="res://assets/char/john/john_idle1_04.png" type="Texture" id=57]
-[ext_resource path="res://assets/char/john/john_idle1_05.png" type="Texture" id=58]
-[ext_resource path="res://assets/char/john/john_idle1_06.png" type="Texture" id=59]
-[ext_resource path="res://assets/char/john/john_idle1_07.png" type="Texture" id=60]
-[ext_resource path="res://assets/char/john/john_idle1_08.png" type="Texture" id=61]
-[ext_resource path="res://assets/char/john/john_idle1_09.png" type="Texture" id=62]
-[ext_resource path="res://assets/char/john/john_idle1_10.png" type="Texture" id=63]
-[ext_resource path="res://assets/char/john/john_idle1_11.png" type="Texture" id=64]
-[ext_resource path="res://assets/char/john/john_idle1_12.png" type="Texture" id=65]
-[ext_resource path="res://assets/char/john/john_idle1_13.png" type="Texture" id=66]
-[ext_resource path="res://assets/char/john/john_idle1_14.png" type="Texture" id=67]
-[ext_resource path="res://assets/char/john/john_idle1_15.png" type="Texture" id=68]
-[ext_resource path="res://assets/char/john/john_idle1_16.png" type="Texture" id=69]
-[ext_resource path="res://assets/char/john/john_idle1_17.png" type="Texture" id=70]
-[ext_resource path="res://assets/char/john/john_idle1_18.png" type="Texture" id=71]
-[ext_resource path="res://assets/char/john/john_idle1_19.png" type="Texture" id=72]
-[ext_resource path="res://assets/char/john/john_idle1_20.png" type="Texture" id=73]
-[ext_resource path="res://assets/char/john/john_idle1_21.png" type="Texture" id=74]
-[ext_resource path="res://assets/char/john/john_idle1_22.png" type="Texture" id=75]
-[ext_resource path="res://assets/char/john/john_idle1_23.png" type="Texture" id=76]
-[ext_resource path="res://assets/char/john/john_idle1_24.png" type="Texture" id=77]
-[ext_resource path="res://assets/char/john/john_jump_07.png" type="Texture" id=78]
-[ext_resource path="res://assets/char/john/john_jump_08.png" type="Texture" id=79]
-[ext_resource path="res://assets/char/john/john_jump_09.png" type="Texture" id=80]
-[ext_resource path="res://assets/char/john/john_jump_10.png" type="Texture" id=81]
-[ext_resource path="res://assets/char/john/john_jump_11.png" type="Texture" id=82]
-[ext_resource path="res://assets/char/john/john_jump_12.png" type="Texture" id=83]
-[ext_resource path="res://assets/char/john/john_jump_13.png" type="Texture" id=84]
-[ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=85]
-[ext_resource path="res://assets/scenes/PauseMenu.tscn" type="PackedScene" id=86]
+[ext_resource path="res://assets/char/john/john_crouch_00.png" type="Texture" id=2]
+[ext_resource path="res://assets/char/john/john_crouch_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/char/john/john_crouch_02.png" type="Texture" id=4]
+[ext_resource path="res://assets/char/john/john_idle_00.png" type="Texture" id=5]
+[ext_resource path="res://assets/char/john/john_idle_01.png" type="Texture" id=6]
+[ext_resource path="res://assets/char/john/john_idle_02.png" type="Texture" id=7]
+[ext_resource path="res://assets/char/john/john_idle_03.png" type="Texture" id=8]
+[ext_resource path="res://assets/char/john/john_idle_04.png" type="Texture" id=9]
+[ext_resource path="res://assets/char/john/john_idle_05.png" type="Texture" id=10]
+[ext_resource path="res://assets/char/john/john_idle_06.png" type="Texture" id=11]
+[ext_resource path="res://assets/char/john/john_idle_07.png" type="Texture" id=12]
+[ext_resource path="res://assets/char/john/john_idle_08.png" type="Texture" id=13]
+[ext_resource path="res://assets/char/john/john_idle_09.png" type="Texture" id=14]
+[ext_resource path="res://assets/char/john/john_idle_10.png" type="Texture" id=15]
+[ext_resource path="res://assets/char/john/john_idle_11.png" type="Texture" id=16]
+[ext_resource path="res://assets/char/john/john_idle_12.png" type="Texture" id=17]
+[ext_resource path="res://assets/char/john/john_walk_00.png" type="Texture" id=18]
+[ext_resource path="res://assets/char/john/john_walk_01.png" type="Texture" id=19]
+[ext_resource path="res://assets/char/john/john_walk_02.png" type="Texture" id=20]
+[ext_resource path="res://assets/char/john/john_walk_03.png" type="Texture" id=21]
+[ext_resource path="res://assets/char/john/john_walk_04.png" type="Texture" id=22]
+[ext_resource path="res://assets/char/john/john_walk_05.png" type="Texture" id=23]
+[ext_resource path="res://assets/char/john/john_walk_06.png" type="Texture" id=24]
+[ext_resource path="res://assets/char/john/john_walk_07.png" type="Texture" id=25]
+[ext_resource path="res://assets/char/john/john_walk_08.png" type="Texture" id=26]
+[ext_resource path="res://assets/char/john/john_walk_09.png" type="Texture" id=27]
+[ext_resource path="res://assets/char/john/john_walk_10.png" type="Texture" id=28]
+[ext_resource path="res://assets/char/john/john_walk_11.png" type="Texture" id=29]
+[ext_resource path="res://assets/char/john/john_walk_12.png" type="Texture" id=30]
+[ext_resource path="res://assets/char/john/john_cast_2.png" type="Texture" id=31]
+[ext_resource path="res://assets/char/john/john_cast_3.png" type="Texture" id=32]
+[ext_resource path="res://assets/char/john/john_cast_4.png" type="Texture" id=33]
+[ext_resource path="res://assets/char/john/john_cast_5.png" type="Texture" id=34]
+[ext_resource path="res://assets/char/john/john_cast_6.png" type="Texture" id=35]
+[ext_resource path="res://assets/char/john/john_jump_0.png" type="Texture" id=36]
+[ext_resource path="res://assets/char/john/john_jump_1.png" type="Texture" id=37]
+[ext_resource path="res://assets/char/john/john_jump_2.png" type="Texture" id=38]
+[ext_resource path="res://assets/char/john/john_jump_3.png" type="Texture" id=39]
+[ext_resource path="res://assets/char/john/john_jump_4.png" type="Texture" id=40]
+[ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=41]
+[ext_resource path="res://assets/scenes/PauseMenu.tscn" type="PackedScene" id=42]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="OccluderPolygon2D" id=1]
+
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( 1.91183, -30.3241, -0.175853, -28.8164, -1.10371, -25.5689, -0.291835, -22.9013, -0.291835, -20.5816, -2.14756, -18.4939, -5.27908, -13.6227, -6.90283, -7.01167, -9.1065, -0.516659, -7.59873, 1.91897, -9.22248, 7.71809, -10.4983, 12.1254, -9.45444, 14.909, -9.80239, 24.6515, -8.75855, 26.7392, -7.71471, 24.6515, -6.90283, 15.3729, -3.88729, 4.47058, -1.45166, 4.58657, 3.18763, 17.6926, 3.99951, 26.0433, 5.50728, 27.2031, 6.55113, 25.3474, 5.97122, 17.2286, 7.24702, 14.0971, 4.46344, -3.76417, 5.3913, -16.7542, 7.13104, -16.2903, 9.68265, -9.4473, 9.56667, 1.91897, 10.7265, 2.61486, 12.2343, -8.40346, 8.29086, -18.7259, 4.46344, -20.6976, 3.4196, -23.9451, 4.69541, -27.1926 )
+
+[sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ) ],
-"loop": false,
-"name": "idle2",
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "idle1",
 "speed": 25.0
 }, {
-"frames": [ ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
-"loop": false,
-"name": "jump",
-"speed": 25.0
-}, {
-"frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ) ],
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ) ],
 "loop": true,
 "name": "walk",
 "speed": 25.0
 }, {
-"frames": [ ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ) ],
-"loop": false,
-"name": "idle1",
+"frames": [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "cast",
 "speed": 25.0
 }, {
-"frames": [ ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 83 ), ExtResource( 84 ) ],
-"loop": false,
-"name": "fall",
+"frames": [ ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
+"loop": true,
+"name": "jump",
 "speed": 25.0
 } ]
 _sections_unfolded = [ "Resource" ]
-
-[sub_resource type="OccluderPolygon2D" id=2]
-
-closed = true
-cull_mode = 0
-polygon = PoolVector2Array( 0.739777, -24.6429, 7.82492, -23.6038, 10.47, -17.2744, 10.47, -12.2675, 10.7534, -7.73303, 7.2581, -4.42664, 5.17979, -0.458984, 5.17979, 2.84741, 4.23511, 8.13763, 2.91255, 13.239, 1.8734, 17.1122, 0.550842, 12.8611, -1.7164, 8.98785, -3.03897, 2.09167, -1.90535, -1.78156, -2.47215, -5.5603, -5.21175, -7.82751, -7.19559, -13.5901, -7.57346, -18.7859, -4.55046, -22.7535 )
 
 [sub_resource type="CapsuleShape2D" id=3]
 
 custom_solver_bias = 0.0
 radius = 12.9962
-height = 35.2722
+height = 60.6263
 
 [sub_resource type="RayShape2D" id=4]
 
 custom_solver_bias = 0.0
-length = 20.0
+length = 32.0
 
 [sub_resource type="RectangleShape2D" id=5]
 
 custom_solver_bias = 0.0
-extents = Vector2( 14.2482, 28.2342 )
+extents = Vector2( 17.968, 47.9633 )
 
 [node name="player_john" type="KinematicBody2D"]
 
@@ -153,65 +104,42 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform" ]
 
-[node name="Sprite" type="AnimatedSprite" parent="." index="0"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="0"]
 
 position = Vector2( -1.94893, 0.587189 )
-frames = SubResource( 1 )
-animation = "jump"
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite" index="0"]
-
-occluder = SubResource( 2 )
+occluder = SubResource( 1 )
 light_mask = 1
-
-[node name="projectilePos" type="Position2D" parent="Sprite" index="1"]
-
-position = Vector2( 14.7453, 4.28088 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Camera2D" type="Camera2D" parent="Sprite" index="2"]
+[node name="Sprite" type="AnimatedSprite" parent="." index="1"]
 
-position = Vector2( 0, -60 )
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 0.6, 0.6 )
-limit_left = -100000
-limit_top = -100000
-limit_right = 100000
-limit_bottom = 100000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.1
-drag_margin_right = 0.2
-drag_margin_bottom = 0.1
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
+position = Vector2( -1.94893, 0.587189 )
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 2 )
+animation = "idle1"
+_sections_unfolded = [ "Transform" ]
 
-[node name="Collider" type="CollisionShape2D" parent="." index="1"]
+[node name="projectilePos" type="Position2D" parent="Sprite" index="0"]
+
+position = Vector2( -80, -20 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
 position = Vector2( -4.57764e-005, 0 )
 shape = SubResource( 3 )
 
-[node name="ProjectileTimer" type="Timer" parent="." index="2"]
+[node name="ProjectileTimer" type="Timer" parent="." index="3"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="healthBar" parent="." index="3" instance=ExtResource( 85 )]
+[node name="healthBar" parent="." index="4" instance=ExtResource( 41 )]
 
-[node name="boostBox" type="Area2D" parent="." index="4"]
+[node name="boostBox" type="Area2D" parent="." index="5"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -225,11 +153,11 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boostBox" index="0"]
 
-position = Vector2( 0.174828, 32.3426 )
+position = Vector2( -2.73084, 32.7772 )
 shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="hitbox" type="Area2D" parent="." index="5"]
+[node name="hitbox" type="Area2D" parent="." index="6"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -244,14 +172,16 @@ audio_bus_name = "Master"
 position = Vector2( 0.174828, 1.74825 )
 shape = SubResource( 5 )
 
-[node name="dmgTimer" type="Timer" parent="." index="6"]
+[node name="dmgTimer" type="Timer" parent="." index="7"]
 
 process_mode = 1
 wait_time = 0.3
 one_shot = false
 autostart = false
 
-[node name="PauseMenu" parent="." index="7" instance=ExtResource( 86 )]
+[node name="PauseMenu" parent="." index="8" instance=ExtResource( 42 )]
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 
 [connection signal="timeout" from="ProjectileTimer" to="." method="_on_ProjectileTimer_timeout"]
 

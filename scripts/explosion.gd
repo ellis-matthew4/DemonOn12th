@@ -2,7 +2,6 @@ extends Area2D
 
 var timer
 var damage = 2
-const BOOST = true
 
 func _ready():
 	timer = Timer.new()
@@ -20,3 +19,6 @@ func tick():
 func entered_hitbox(body):
 	if body.has_method("damage"):
 		body.damage(self, damage)
+
+func boost():
+	pass
