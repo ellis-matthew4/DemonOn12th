@@ -66,7 +66,6 @@ func _physics_process(delta):
 			$Sprite/projectilePos.position = Vector2(80,-20)
 		if !attacking and !jumping:
 			$Sprite.play("walk")
-		$Sprite.playing = true
 		left = false
 	elif Input.is_action_pressed("ui_left") and !crouch:
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
@@ -75,7 +74,6 @@ func _physics_process(delta):
 			$Sprite/projectilePos.position = Vector2(-80,-20)
 		if !attacking and !jumping:
 			$Sprite.play("walk")
-		$Sprite.playing = true
 		left = true
 	else:
 		if !attacking and !jumping:
@@ -99,7 +97,8 @@ func _physics_process(delta):
 		if jumping:
 			jumping = false
 	else:
-		$Sprite.play("jump")
+		if !attacking:
+			$Sprite.play("jump")
 		if !temp:
 			temp = true
 			var k = Timer.new()
@@ -112,12 +111,12 @@ func _physics_process(delta):
 		$Sprite.play("crouch")
 	
 	if Input.is_action_just_pressed("ui_switch"):
-		$Collider.position.y -= 12
 		crouch = true
 	elif Input.is_action_just_released("ui_switch"):
-		position.y -= 10
-		$Collider.position.y += 12
-		$Sprite.play("walk")
+		if motion.x == 0:
+			$Sprite.play("idle1")
+		else:
+			$Sprite.play("walk")
 		crouch = false
 		
 	if Input.is_action_just_pressed("ui_page_down"):

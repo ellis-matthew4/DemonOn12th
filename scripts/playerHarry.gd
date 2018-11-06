@@ -67,14 +67,15 @@ func _physics_process(delta):
 			$Sprite.play("walk")
 		left = true
 	else:
-		if !attacking and !crouch and !jumping:
+		if !attacking and !jumping:
 			$Sprite.play("idle")
 		if !friction:
 			if !damaged:
 				motion.x = 0
 					
-	if Input.is_action_just_pressed("ui_switch"):
+	if Input.is_action_pressed("ui_switch"):
 		$Sprite.play("crouch")
+	if Input.is_action_just_pressed("ui_switch"):
 		$Sprite/Particles2D.emitting = true
 		crouch = true
 	elif Input.is_action_just_released("ui_switch"):
@@ -125,6 +126,7 @@ func _physics_process(delta):
 
 func _on_animation_finished():
 	if attacking:
+		print("Success")
 		attacking = false
 		
 func attack():
@@ -147,7 +149,6 @@ func attack():
 		friction = true
 		thrust = true
 		$attackTimer.start()
-		
 	if temp:
 		$Sprite.play("jump")
 
