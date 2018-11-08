@@ -9,11 +9,7 @@ const LADDER_SPEED = 300
 const ATK = preload("res://assets/scenes/attackArea.tscn")
 
 var motion = Vector2()
-var jumping = false
-var on_ladder = false
 var left = false
-var crouch = false
-var attacking = false
 var damaged = false
 var can_jump = true
 var temp = false
@@ -21,6 +17,10 @@ var temp = false
 var combo = 0
 var thrust = false
 var friction = false
+
+enum { IDLE, JUMP, WALK, ATTACK, LADDER, CROUCH }
+var state = IDLE
+var sub = IDLE
 
 onready var col = get_node("Collider")
 onready var tilemap = get_tree().current_scene.find_node("midground")
@@ -33,16 +33,24 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
+	match state:
+		IDLE: $Sprite.play("idle")
+		JUMP: $Sprite.play("jump")
+		WALK: $Sprite.play("walk")
+		ATTACK: pass
+		LADDER: pass
+		CROUCH: $Sprite.play("crouch")
+		_: print("STATE FAILURE")
 	
 	if Input.is_action_just_pressed("ui_attack"):
-		if !crouch:
+		if state != CROUCH:
 			attack()
 	
 	if Input.is_action_just_pressed("ui_pause"):
 		$PauseMenu.show()
 		get_tree().paused = true
 	
-	if on_ladder:
+	if sub == LADDER:
 		if Input.is_action_pressed("ui_up"):
 			motion.y = -LADDER_SPEED
 		elif Input.is_action_pressed("ui_down"):
@@ -52,42 +60,40 @@ func _physics_process(delta):
 	else:
 		motion.y += GRAVITY
 	
-	if Input.is_action_pressed("ui_right") and !crouch:
+	if Input.is_action_pressed("ui_right") and state != CROUCH:
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 		$Sprite.flip_h = true
 		$Sprite/swordPos.position = Vector2(72, -26)
-		if !crouch and !attacking and !jumping:
-			$Sprite.play("walk")
+		if state != CROUCH and state != ATTACK and state != JUMP:
+			state = WALK
 		left = false
-	elif Input.is_action_pressed("ui_left") and !crouch:
+	elif Input.is_action_pressed("ui_left") and state != CROUCH:
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 		$Sprite.flip_h = false
 		$Sprite/swordPos.position = Vector2(-72, -26)
-		if !crouch and !attacking and !jumping:
-			$Sprite.play("walk")
+		if state != CROUCH and state != ATTACK and state != JUMP:
+			state = WALK
 		left = true
 	else:
-		if !attacking and !jumping:
-			$Sprite.play("idle")
+		if state != CROUCH and state != JUMP and state != ATTACK:
+			state = IDLE
 		if !friction:
 			if !damaged:
 				motion.x = 0
 					
-	if Input.is_action_pressed("ui_switch"):
-		$Sprite.play("crouch")
 	if Input.is_action_just_pressed("ui_switch"):
 		$Sprite/Particles2D.emitting = true
-		crouch = true
+		state = CROUCH
 	elif Input.is_action_just_released("ui_switch"):
 		$Sprite/Particles2D.emitting = false
-		crouch = false
+		state = IDLE
 				
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)
 		
 	if can_jump:
 		if Input.is_action_just_pressed("ui_up"):
-			jumping = true
+			state = JUMP
 			can_jump = false
 			temp = true
 			motion.y = -JUMP_HEIGHT
@@ -100,10 +106,12 @@ func _physics_process(delta):
 	if is_on_floor():
 		can_jump = true
 		temp = false
-		if jumping:
-			jumping = false
+		if state == JUMP:
+			state = IDLE
 		$attackTimer.wait_time = 0.1
 	else:
+		if state != ATTACK:
+			state = JUMP
 		$attackTimer.wait_time = 0.2
 		if !temp:
 			temp = true
@@ -125,12 +133,11 @@ func _physics_process(delta):
 		globs.switch_character()
 
 func _on_animation_finished():
-	if attacking:
-		print("Success")
-		attacking = false
+	if state == ATTACK:
+		state = IDLE
 		
 func attack():
-	attacking = true
+	state = ATTACK
 	var a = ATK.instance()
 	a.damage = 2
 	$Sprite/swordPos.add_child(a)
@@ -149,8 +156,6 @@ func attack():
 		friction = true
 		thrust = true
 		$attackTimer.start()
-	if temp:
-		$Sprite.play("jump")
 
 func _on_frictionTimer_timeout():
 	friction = false
@@ -161,10 +166,10 @@ func _on_comboTimer_timeout():
 
 func hitbox_entered(area):
 	if area.has_method("ladder"):
-		on_ladder = true
+		sub = LADDER
 
 func hitbox_exited(area):
-	on_ladder = false
+	sub = IDLE
 	
 func damage(body, amount):
 	globs.damage(amount)

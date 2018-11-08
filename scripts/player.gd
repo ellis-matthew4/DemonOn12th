@@ -11,15 +11,15 @@ const RUNE_SCENE = preload("res://assets/scenes/rune.tscn")
 const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 
 var motion = Vector2()
-var jumping = false
-var on_ladder = false
 var left = true
 var cooldown = false
-var crouch = false
 var damaged = false
-var attacking = false
 var can_jump = true
 var temp = false
+
+enum { IDLE, JUMP, WALK, CAST, LADDER, CROUCH }
+var state = IDLE
+var sub = IDLE
 
 onready var tilemap = get_tree().current_scene.find_node("midground")
 onready var dmgTimer = $dmgTimer
@@ -31,15 +31,8 @@ func _ready():
 func _process(delta):
 	if !cooldown:
 		if Input.is_action_just_pressed("ui_attack"):
-			if !crouch:
-				attacking = true
-				$Sprite.play("cast")
-				var fb = FIREBOLT_SCENE.instance()
-				fb.orient(left)
-				tilemap.add_child(fb)
-				fb.position = $Sprite/projectilePos.global_position
-				cooldown = true
-				$ProjectileTimer.start()
+			if state != CROUCH:
+				fireBall()
 			else:
 				var rn = RUNE_SCENE.instance()
 				tilemap.add_child(rn)
@@ -48,8 +41,18 @@ func _process(delta):
 		$PauseMenu.show()
 		get_tree().paused = true
 
-func _physics_process(delta):	
-	if on_ladder:
+func _physics_process(delta):
+	match state:
+		IDLE: $Sprite.play("idle1")
+		JUMP: if sub == IDLE:
+			$Sprite.play("jump")
+		WALK: $Sprite.play("walk")
+		CAST: $Sprite.play("cast")
+		CROUCH: $Sprite.play("crouch")
+		LADDER: pass
+		_: print("STATE FAILURE")
+		
+	if sub == LADDER:
 		if Input.is_action_pressed("ui_up"):
 			motion.y = -LADDER_SPEED
 		elif Input.is_action_pressed("ui_down"):
@@ -59,31 +62,29 @@ func _physics_process(delta):
 	else:
 		motion.y += GRAVITY
 	
-	if Input.is_action_pressed("ui_right") and !crouch:
+	if Input.is_action_pressed("ui_right") and state != CROUCH:
+		state = WALK
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 		$Sprite.flip_h = true
 		if left:
 			$Sprite/projectilePos.position = Vector2(80,-20)
-		if !attacking and !jumping:
-			$Sprite.play("walk")
 		left = false
-	elif Input.is_action_pressed("ui_left") and !crouch:
+	elif Input.is_action_pressed("ui_left") and state != CROUCH:
+		state = WALK
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 		$Sprite.flip_h = false
 		if !left:
 			$Sprite/projectilePos.position = Vector2(-80,-20)
-		if !attacking and !jumping:
-			$Sprite.play("walk")
 		left = true
 	else:
-		if !attacking and !jumping:
-			$Sprite.play("idle1")
+		if state != CROUCH and state != JUMP and state != CAST:
+			state = IDLE
 		if !damaged:
 			motion.x = 0
 		
 	if can_jump:
 		if Input.is_action_just_pressed("ui_up"):
-			jumping = true
+			state = JUMP
 			motion.y = -JUMP_HEIGHT
 			can_jump = false
 			temp = true
@@ -94,11 +95,11 @@ func _physics_process(delta):
 	if is_on_floor():
 		can_jump = true
 		temp = false
-		if jumping:
-			jumping = false
+		if state == JUMP:
+			state = IDLE
 	else:
-		if !attacking:
-			$Sprite.play("jump")
+		if state != CAST:
+			state = JUMP
 		if !temp:
 			temp = true
 			var k = Timer.new()
@@ -106,18 +107,11 @@ func _physics_process(delta):
 			k.connect("timeout", self, "stopJump", [k])
 			add_child(k)
 			k.start()
-	
-	if Input.is_action_pressed("ui_switch"):
-		$Sprite.play("crouch")
-	
+		
 	if Input.is_action_just_pressed("ui_switch"):
-		crouch = true
+		state = CROUCH
 	elif Input.is_action_just_released("ui_switch"):
-		if motion.x == 0:
-			$Sprite.play("idle1")
-		else:
-			$Sprite.play("walk")
-		crouch = false
+		state = IDLE
 		
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)
@@ -137,10 +131,12 @@ func rocketJump(area):
 
 func hitbox_entered(area):
 	if area.has_method("ladder"):
-		on_ladder = true
+		sub = LADDER
 
 func hitbox_exited(area):
-	on_ladder = false
+	state = IDLE
+	if area.has_method("ladder"):
+		sub = IDLE
 	
 func damage(body, amount):
 	globs.damage(amount)
@@ -155,10 +151,20 @@ func _on_dmgTimer_timeout():
 	damaged = false
 
 func _on_Sprite_animation_finished():
-	if $Sprite.animation == "cast":
-		attacking = false
+	if state == CAST:
+		state = IDLE
 
 func stopJump(k):
 	temp = false
 	can_jump = false
 	remove_child(k)
+	
+func fireBall():
+	state = CAST
+	var fb = FIREBOLT_SCENE.instance()
+	fb.orient(left)
+	tilemap.add_child(fb)
+	fb.position = $Sprite/projectilePos.global_position
+	cooldown = true
+	$ProjectileTimer.start()
+	
