@@ -42,22 +42,27 @@ func _process(delta):
 		get_tree().paused = true
 
 func _physics_process(delta):
-	match state:
-		IDLE: $Sprite.play("idle1")
-		JUMP: if sub == IDLE:
-			$Sprite.play("jump")
-		WALK: $Sprite.play("walk")
-		CAST: $Sprite.play("cast")
-		CROUCH: $Sprite.play("crouch")
-		LADDER: pass
-		_: print("STATE FAILURE")
+	if sub != LADDER:
+		match state:
+			IDLE: $Sprite.play("idle1")
+			JUMP: if sub == IDLE:
+				$Sprite.play("jump")
+			WALK: $Sprite.play("walk")
+			CAST: $Sprite.play("cast")
+			CROUCH: $Sprite.play("crouch")
+			LADDER: pass
+			_: print("STATE FAILURE")
 		
 	if sub == LADDER:
+		$Sprite.play("climb")
 		if Input.is_action_pressed("ui_up"):
+			$Sprite.playing = true
 			motion.y = -LADDER_SPEED
 		elif Input.is_action_pressed("ui_down"):
+			$Sprite.playing = true
 			motion.y = LADDER_SPEED
 		else:
+			$Sprite.playing = false
 			motion.y = 0
 	else:
 		motion.y += GRAVITY

@@ -33,14 +33,15 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	match state:
-		IDLE: $Sprite.play("idle")
-		JUMP: $Sprite.play("jump")
-		WALK: $Sprite.play("walk")
-		ATTACK: pass
-		LADDER: pass
-		CROUCH: $Sprite.play("crouch")
-		_: print("STATE FAILURE")
+	if sub != LADDER:
+		match state:
+			IDLE: $Sprite.play("idle")
+			JUMP: $Sprite.play("jump")
+			WALK: $Sprite.play("walk")
+			ATTACK: pass
+			LADDER: pass
+			CROUCH: $Sprite.play("crouch")
+			_: print("STATE FAILURE")
 	
 	if Input.is_action_just_pressed("ui_attack"):
 		if state != CROUCH:
@@ -51,11 +52,15 @@ func _physics_process(delta):
 		get_tree().paused = true
 	
 	if sub == LADDER:
+		$Sprite.play("climb")
 		if Input.is_action_pressed("ui_up"):
+			$Sprite.playing = true
 			motion.y = -LADDER_SPEED
 		elif Input.is_action_pressed("ui_down"):
+			$Sprite.playing = true
 			motion.y = LADDER_SPEED
 		else:
+			$Sprite.playing = false
 			motion.y = 0
 	else:
 		motion.y += GRAVITY

@@ -18,6 +18,10 @@ config/icon="res://icon.png"
 
 globs="*res://scripts/globs.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PoolStringArray( "SMRT" )
