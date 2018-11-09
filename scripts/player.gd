@@ -52,6 +52,8 @@ func _physics_process(delta):
 			CROUCH: $Sprite.play("crouch")
 			LADDER: pass
 			_: print("STATE FAILURE")
+	else:
+		state = IDLE
 		
 	if sub == LADDER:
 		$Sprite.play("climb")

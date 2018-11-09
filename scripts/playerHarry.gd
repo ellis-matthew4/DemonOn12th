@@ -42,6 +42,8 @@ func _physics_process(delta):
 			LADDER: pass
 			CROUCH: $Sprite.play("crouch")
 			_: print("STATE FAILURE")
+	else:
+		state = IDLE
 	
 	if Input.is_action_just_pressed("ui_attack"):
 		if state != CROUCH:

@@ -46,7 +46,7 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 12, 8 )
@@ -56,12 +56,12 @@ extents = Vector2( 12, 8 )
 custom_solver_bias = 0.0
 extents = Vector2( 13.2072, 12.912 )
 
-[node name="root" type="RigidBody2D"]
+[node name="root" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
 collision_mask = 2
-mode = 0
+mode = 2
 mass = 1.0
 friction = 1.0
 bounce = 0.0
@@ -84,14 +84,13 @@ JUMP = -200
 
 frames = SubResource( 1 )
 animation = "idle"
-frame = 4
+frame = 16
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-visible = false
 position = Vector2( 0.846397, -3.92419 )
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 
 [node name="hitbox" type="Area2D" parent="." index="2"]
 
