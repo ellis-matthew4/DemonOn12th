@@ -1,13 +1,14 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/office.gd" type="Script" id=1]
 [ext_resource path="res://assets/tiles/homeTileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/scenes/door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/scenes/slime.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/ladder.gd" type="Script" id=5]
-[ext_resource path="res://assets/lightmaps/bulb_cone.png" type="Texture" id=6]
-[ext_resource path="res://assets/lightmaps/magic.png" type="Texture" id=7]
-[ext_resource path="res://scripts/spell.gd" type="Script" id=8]
+[ext_resource path="res://assets/scenes/paperSoldier.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/ladder.gd" type="Script" id=6]
+[ext_resource path="res://assets/lightmaps/bulb_cone.png" type="Texture" id=7]
+[ext_resource path="res://assets/lightmaps/magic.png" type="Texture" id=8]
+[ext_resource path="res://scripts/spell.gd" type="Script" id=9]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 
@@ -272,7 +273,6 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="midground" type="TileMap" parent="." index="1"]
 
-editor/display_folded = true
 mode = 0
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
@@ -355,15 +355,14 @@ _sections_unfolded = [ "Collision", "collision" ]
 position = Vector2( 1187.81, 1440.78 )
 _sections_unfolded = [ "Collision", "collision" ]
 
-[node name="slime2" parent="midground/Enemies" index="2" instance=ExtResource( 4 )]
-
-position = Vector2( 865.88, 1800.38 )
-_sections_unfolded = [ "Collision", "collision" ]
-
-[node name="slime3" parent="midground/Enemies" index="3" instance=ExtResource( 4 )]
+[node name="slime3" parent="midground/Enemies" index="2" instance=ExtResource( 4 )]
 
 position = Vector2( 1749.48, 1811.38 )
 _sections_unfolded = [ "Collision", "collision" ]
+
+[node name="paperSoldier1" parent="midground/Enemies" index="3" instance=ExtResource( 5 )]
+
+position = Vector2( 286.041, 578.209 )
 
 [node name="Environment" type="Node2D" parent="midground" index="4"]
 
@@ -377,7 +376,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="CollisionShape0" type="CollisionShape2D" parent="midground/Environment/ladder0" index="0"]
 
@@ -393,7 +392,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="midground/Environment/ladder1" index="0"]
 
@@ -409,7 +408,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="midground/Environment/ladder2" index="0"]
 
@@ -446,7 +445,7 @@ position = Vector2( -144.788, 436.777 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -473,7 +472,7 @@ position = Vector2( 368.15, 436.282 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -499,7 +498,7 @@ position = Vector2( 720.505, 437.39 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -526,7 +525,7 @@ position = Vector2( -144.871, 180.325 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -553,7 +552,7 @@ position = Vector2( -144.871, -75.6311 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -580,7 +579,7 @@ position = Vector2( 367.042, -75.6311 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -607,7 +606,7 @@ position = Vector2( 720.505, -74.5231 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -634,7 +633,7 @@ position = Vector2( 368.15, 180.325 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -661,7 +660,7 @@ position = Vector2( 718.289, 179.217 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -688,7 +687,7 @@ position = Vector2( -145.572, -365.221 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -715,7 +714,7 @@ position = Vector2( 368.259, -364.486 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -742,7 +741,7 @@ position = Vector2( 718.899, -365.221 )
 scale = Vector2( 0.488228, 0.488228 )
 enabled = true
 editor_only = false
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 11.2329, 268.362 )
 texture_scale = 1.0
 color = Color( 1, 1, 1, 1 )
@@ -820,7 +819,7 @@ _sections_unfolded = [ "Drawing", "Process Material" ]
 position = Vector2( 0, -66.5979 )
 enabled = true
 editor_only = false
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 offset = Vector2( 0, 0 )
 texture_scale = 1.0
 color = Color( 0, 0.0390625, 1, 1 )
@@ -839,7 +838,7 @@ shadow_gradient_length = 0.0
 shadow_filter = 0
 shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "Range", "Transform" ]
 
 [node name="Particles2D" type="Particles2D" parent="MagicCircle/spell" index="0"]

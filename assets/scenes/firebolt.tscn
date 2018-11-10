@@ -93,7 +93,7 @@ radius = 7.5
 custom_solver_bias = 0.0
 radius = 14.9457
 
-[node name="Source" type="RigidBody2D" index="0" groups=[
+[node name="Source" type="RigidBody2D" groups=[
 "attack",
 ]]
 
@@ -198,6 +198,8 @@ _sections_unfolded = [ "Collision" ]
 shape = SubResource( 9 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_Source_body_entered"]
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_Source_body_entered"]
 
