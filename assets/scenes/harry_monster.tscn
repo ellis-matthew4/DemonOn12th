@@ -1,0 +1,300 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://scripts/monster.gd" type="Script" id=1]
+[ext_resource path="res://assets/char/ww/ww_idle1.png" type="Texture" id=2]
+[ext_resource path="res://assets/char/ww/ww_idle2.png" type="Texture" id=3]
+[ext_resource path="res://assets/char/ww/ww_idle3.png" type="Texture" id=4]
+[ext_resource path="res://assets/char/ww/ww_idle4.png" type="Texture" id=5]
+[ext_resource path="res://assets/char/ww/ww_attack1.png" type="Texture" id=6]
+[ext_resource path="res://assets/char/ww/ww_attack2.png" type="Texture" id=7]
+[ext_resource path="res://assets/char/ww/ww_attack3.png" type="Texture" id=8]
+[ext_resource path="res://assets/char/ww/ww_attack4.png" type="Texture" id=9]
+[ext_resource path="res://assets/char/ww/ww_walk1.png" type="Texture" id=10]
+[ext_resource path="res://assets/char/ww/ww_walk2.png" type="Texture" id=11]
+[ext_resource path="res://assets/char/ww/ww_walk3.png" type="Texture" id=12]
+[ext_resource path="res://assets/char/ww/ww_walk4.png" type="Texture" id=13]
+[ext_resource path="res://assets/char/ww/ww_jump.png" type="Texture" id=14]
+[ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/scenes/PauseMenu.tscn" type="PackedScene" id=16]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( 3.02567, -46.3753, -0.658591, -44.2025, -1.31987, -41.4629, -0.186248, -38.6289, -0.0917804, -35.8893, 1.70312, -33.0552, 1.04184, -29.6544, -1.5088, -27.1037, -4.05945, -24.3642, -4.24838, -20.8688, -6.13775, -15.0118, -5.19307, -10.4773, -6.13775, -4.05349, -8.12101, -1.55334, -10.5566, 11.2047, -13.2242, 25.0066, -12.8763, 42.6359, -9.62878, 43.6797, -8.00503, 25.8185, -3.5977, 9.58096, -1.39403, 9.34899, 5.44891, 24.3107, 6.14481, 43.2158, 11.48, 41.94, 11.0161, 22.339, 6.95668, 7.84122, 5.91284, 4.7097, 8.11651, 3.31791, 8.09584, -1.00958, 7.71031, -9.23436, 8.48138, -17.2021, 8.86691, -23.7562, 8.48138, -28.1257, 4.75453, -30.3104, 4.88304, -33.9087, 6.81072, -37.507, 6.93923, -41.2339, 6.03965, -46.1174 )
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "attack",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "walk",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "jump",
+"speed": 20.0
+} ]
+
+[sub_resource type="Curve" id=3]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0, 0.0917969 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+
+flags = 4
+width = 2048
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 2
+emission_box_extents = Vector3( 64, 200, 1 )
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 90.0
+flatness = 0.0
+gravity = Vector3( 0, -196, 0 )
+initial_velocity = 45.0
+initial_velocity_random = 1.0
+angular_velocity = 60.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 0.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 20.0
+scale_random = 0.0
+scale_curve = SubResource( 4 )
+color = Color( 0, 0, 0, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Scale" ]
+
+[sub_resource type="CapsuleShape2D" id=6]
+
+custom_solver_bias = 0.0
+radius = 15.5004
+height = 56.1645
+
+[sub_resource type="StyleBoxFlat" id=8]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.403617, 0.399475, 0.929688, 1 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+
+[sub_resource type="StyleBoxFlat" id=9]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0, 0, 0, 1 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+
+[sub_resource type="RectangleShape2D" id=7]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14.7303, 43.6433 )
+
+[node name="harry_monster" type="KinematicBody2D" groups=[
+"playable_characters",
+]]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="0"]
+
+position = Vector2( -1.94893, 0.587189 )
+occluder = SubResource( 1 )
+light_mask = 1
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="1"]
+
+position = Vector2( -1.94893, 0.587189 )
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 2 )
+animation = "idle"
+_sections_unfolded = [ "Transform" ]
+
+[node name="swordPos" type="Position2D" parent="Sprite" index="0"]
+
+position = Vector2( -64, -26 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Particles2D" type="Particles2D" parent="Sprite" index="1"]
+
+emitting = true
+amount = 64
+lifetime = 1.0
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 5 )
+texture = null
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Process Material" ]
+
+[node name="Collider" type="CollisionShape2D" parent="." index="2"]
+
+position = Vector2( -0.927902, 1.04384 )
+shape = SubResource( 6 )
+
+[node name="healthBar" parent="." index="3" instance=ExtResource( 15 )]
+
+[node name="ProgressBar" type="ProgressBar" parent="healthBar" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 74.0
+margin_top = 71.0
+margin_right = 147.0
+margin_bottom = 75.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 0
+custom_styles/fg = SubResource( 8 )
+custom_styles/bg = SubResource( 9 )
+min_value = 0.0
+max_value = 15.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+percent_visible = false
+_sections_unfolded = [ "custom_styles" ]
+
+[node name="hitbox" type="Area2D" parent="." index="4"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" index="0"]
+
+position = Vector2( 0, 1.10445 )
+shape = SubResource( 7 )
+
+[node name="dmgTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.3
+one_shot = false
+autostart = false
+
+[node name="PauseMenu" parent="." index="6" instance=ExtResource( 16 )]
+
+[node name="Timer" type="Timer" parent="." index="7"]
+
+process_mode = 1
+wait_time = 15.0
+one_shot = false
+autostart = true
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_animation_finished"]
+
+[connection signal="area_entered" from="hitbox" to="." method="hitbox_entered"]
+
+[connection signal="area_exited" from="hitbox" to="." method="hitbox_exited"]
+
+[connection signal="timeout" from="dmgTimer" to="." method="_on_dmgTimer_timeout"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+

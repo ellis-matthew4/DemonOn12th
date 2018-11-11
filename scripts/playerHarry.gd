@@ -48,6 +48,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_attack"):
 		if state != CROUCH:
 			attack()
+		else:
+			globs.transform_monster()
 	
 	if Input.is_action_just_pressed("ui_pause"):
 		$PauseMenu.show()
@@ -92,8 +94,9 @@ func _physics_process(delta):
 		$Sprite/Particles2D.emitting = true
 		state = CROUCH
 	elif Input.is_action_just_released("ui_switch"):
-		$Sprite/Particles2D.emitting = false
 		state = IDLE
+	if state != CROUCH:
+		$Sprite/Particles2D.emitting = false
 				
 	if Input.is_action_just_pressed("ui_page_down"):
 		globs.damage(-1)

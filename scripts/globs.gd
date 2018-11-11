@@ -11,7 +11,8 @@ var money = 0
 
 onready var johnScene = preload("res://assets/scenes/player_john.tscn")
 onready var harryScene = preload("res://assets/scenes/player_harry.tscn")
-#onready var johnScene = preload("res://assets/scenes/player_charlotte.tscn")
+#onready var charlotteScene = preload("res://assets/scenes/player_charlotte.tscn")
+onready var monsterScene = preload("res://assets/scenes/harry_monster.tscn")
 
 onready var cameraScene = preload("res://assets/scenes/DefaultCamera.tscn")
 var cam
@@ -39,6 +40,28 @@ func switch_character():
 			selected_character = 1
 		else:
 			selected_character = 0
+	var k = chars[selected_character]
+	var p = current.global_position
+	k.add_child(cam)
+	charSlot.remove_child(current)
+	charSlot.add_child(k)
+	k.global_position = p
+	
+func transform_monster():
+	var charSlot = get_tree().current_scene.find_node("Characters")
+	var current = charSlot.get_child(0)
+	current.remove_child(cam)
+	var k = monsterScene.instance()
+	var p = current.global_position
+	k.add_child(cam)
+	charSlot.remove_child(current)
+	charSlot.add_child(k)
+	k.global_position = p
+	
+func transform_harry():
+	var charSlot = get_tree().current_scene.find_node("Characters")
+	var current = charSlot.get_child(0)
+	current.remove_child(cam)
 	var k = chars[selected_character]
 	var p = current.global_position
 	k.add_child(cam)

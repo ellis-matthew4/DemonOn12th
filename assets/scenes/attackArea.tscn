@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 a = Vector2( 0, 200 )
 b = Vector2( 0, -200 )
 
-[node name="attackArea" type="Node2D"]
+[node name="attackArea" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
