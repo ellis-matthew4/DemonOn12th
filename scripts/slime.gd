@@ -2,7 +2,6 @@ extends RigidBody2D
 
 export var SPEED = 180
 export var JUMP = -200
-const GRAVITY = 20
 const DEATH = preload("res://assets/scenes/SlimeDeath.tscn")
 var motion = Vector2(SPEED, JUMP)
 

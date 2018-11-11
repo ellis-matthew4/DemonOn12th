@@ -1,8 +1,8 @@
-extends Area2D
+extends RigidBody2D
 
 export var SPEED = -180
 const DEATH = preload("res://assets/scenes/SlimeDeath.tscn")
-var motion
+var motion = Vector2(0,0)
 
 onready var sprite = $AnimatedSprite
 onready var ray = $RayCast2D
@@ -37,7 +37,6 @@ func _process(delta):
 
 
 func _on_Timer_timeout():
-	print("test")
 	$Timer.start()
 	if state == WALK:
 		state = IDLE

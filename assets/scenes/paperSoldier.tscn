@@ -1,14 +1,14 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/paperSoldier.gd" type="Script" id=1]
 [ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_walk1.png" type="Texture" id=2]
 [ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_walk3.png" type="Texture" id=3]
-[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run1.png" type="Texture" id=4]
-[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run2.png" type="Texture" id=5]
-[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run3.png" type="Texture" id=6]
-[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run4.png" type="Texture" id=7]
-[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_walk2.png" type="Texture" id=8]
-[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_walk4.png" type="Texture" id=9]
+[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_walk2.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_walk4.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run1.png" type="Texture" id=6]
+[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run2.png" type="Texture" id=7]
+[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run3.png" type="Texture" id=8]
+[ext_resource path="res://assets/enemies/paperSoldier/paperSoldier_run4.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -18,15 +18,15 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "walk",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -44,17 +44,32 @@ extents = Vector2( 14.5175, 31.7159 )
 custom_solver_bias = 0.0
 length = 25.0
 
-[node name="root" type="Area2D"]
+[sub_resource type="OccluderPolygon2D" id=5]
 
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( 0.2453, -29.1524, -6.29506, -18.457, -9.68065, -18.1493, -11.5273, -15.3792, -7.52618, -12.917, -6.14116, -6.37663, -4.6792, -3.52965, -2.75557, -1.14434, -3.44808, 13.0136, -1.60139, 23.7169, 1.24559, 24.0247, 3.16922, 13.5601, 2.24588, -1.17644, 8.47845, -6.06399, 8.4015, -15.3744, 11.7102, -16.6824, 11.0176, -18.683, 8.17067, -18.1444, 7.93983, -21.2992, 3.93867, -27.0701 )
+
+[node name="paperSoldier" type="RigidBody2D"]
+
+input_pickable = false
 collision_layer = 2
 collision_mask = 2
-audio_bus_override = false
-audio_bus_name = "Master"
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 5.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 SPEED = -180
@@ -113,6 +128,11 @@ audio_bus_name = "Master"
 rotation = 1.5708
 shape = SubResource( 4 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="6"]
+
+occluder = SubResource( 5 )
+light_mask = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
