@@ -21,7 +21,7 @@ enum { IDLE, JUMP, WALK, CAST, LADDER, CROUCH }
 var state = IDLE
 var sub = IDLE
 
-onready var tilemap = get_tree().current_scene.find_node("midground")
+onready var tilemap = get_tree().current_scene.get_child(0).find_node("midground")
 onready var dmgTimer = $dmgTimer
 
 func _ready():

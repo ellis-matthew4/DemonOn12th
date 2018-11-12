@@ -55,7 +55,7 @@ func _on_Timer_timeout():
 		print("STATE ERROR")
 		
 func detectPlayer():
-	var p = get_tree().current_scene.find_node("Characters").get_child(0).global_position
+	var p = get_tree().current_scene.get_child(0).find_node("Characters").get_child(0).global_position
 	var m = global_position
 	if abs(p.y-m.y) < 100:
 		if SPEED < 0:

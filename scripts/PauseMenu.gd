@@ -29,5 +29,5 @@ func _on_quit_pressed():
 
 
 func _on_save_pressed():
-	var pos = get_tree().current_scene.find_node("Characters").get_child(0).position
+	var pos = get_tree().current_scene.find_node("Characters").get_child(0).global_position
 	globs.save(pos)

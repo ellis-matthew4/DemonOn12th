@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal Switch
+
 var SPEED = 1
 const LIMIT = 400
 const PATH = "res://assets/scenes/Menu.tscn"
@@ -24,19 +26,16 @@ func _process(delta):
 		else:
 			SPEED *= -1
 
-
 func _on_Start_pressed():
-	#Change me later!
-	get_tree().change_scene("res://office.tscn")
-
+	globs.spawnPoint = "start"
+	globs.path = "res://office.tscn"
+	emit_signal("Switch")
 
 func _on_Load_pressed():
-	globs.save(0)
-
+	globs.load()
 
 func _on_Options_pressed():
 	pass # replace with function body
-
 
 func _on_Quit_pressed():
 	get_tree().quit()
