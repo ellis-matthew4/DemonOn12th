@@ -1,8 +1,6 @@
 extends Node2D
 
-var office = preload("res://office.tscn")
 var menu = preload("res://assets/scenes/Menu.tscn")
-
 var scene
 
 func _ready():
@@ -16,3 +14,5 @@ func switch():
 	scene = x.instance()
 	scene.connect("Switch", self, "switch")
 	add_child(scene)
+	if get_tree().paused:
+		get_tree().paused = false

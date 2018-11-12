@@ -48,6 +48,9 @@ func switch_character():
 	charSlot.add_child(k)
 	k.global_position = p
 	
+func remove_character():
+	get_tree().current_scene.get_child(0).find_node("Characters").get_child(0).remove_child(cam)
+	
 func transform_monster():
 	var charSlot = get_tree().current_scene.get_child(0).find_node("Characters")
 	var current = charSlot.get_child(0)
@@ -86,7 +89,7 @@ func damage(amount):
 func save(pos):
 	var save_dict = {
         "filename" : "res://saveData.sav",
-		"scene" : get_tree().current_scene.PATH,
+		"scene" : get_tree().current_scene.get_child(0).PATH,
 		"position" : var2str(pos),
 		"john_hp" : hp[0],
 		"harry_hp" : hp[1],
