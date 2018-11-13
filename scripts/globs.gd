@@ -3,7 +3,7 @@ extends Node
 var hp = [7,7,7]
 
 var selected_character = 0 #0:John, 1:Harry, 2:Charlotte
-var char_unlocked = false
+var char_unlocked = true
 var STATE = 0 #Controls the dialogue system by major category
 var SUBSTATE = 0 #Controls the specific dialogues
 var inventory = {}
@@ -15,7 +15,7 @@ var path
 
 onready var johnScene = preload("res://assets/scenes/player_john.tscn")
 onready var harryScene = preload("res://assets/scenes/player_harry.tscn")
-#onready var charlotteScene = preload("res://assets/scenes/player_charlotte.tscn")
+onready var charlotteScene = preload("res://assets/scenes/player_charlotte.tscn")
 onready var monsterScene = preload("res://assets/scenes/harry_monster.tscn")
 
 onready var cameraScene = preload("res://assets/scenes/DefaultCamera.tscn")
@@ -78,7 +78,7 @@ func get_character(i):
 	match(i):
 		0: k = johnScene.instance()
 		1: k = harryScene.instance()
-		#2: var k = charlScene.instance()
+		2: k = charlotteScene.instance()
 		_: print("Failed to assign character")
 	k.add_child(cam)
 	return k
