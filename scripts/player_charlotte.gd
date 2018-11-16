@@ -72,14 +72,14 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_right") and state != CROUCH:
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 		$Sprite.flip_h = true
-		$Sprite/swordPos.position = Vector2(72, -26)
+		$Sprite/swordPos.position = Vector2(245, -10)
 		if state != CROUCH and state != ATTACK and state != JUMP:
 			state = WALK
 		left = false
 	elif Input.is_action_pressed("ui_left") and state != CROUCH:
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
 		$Sprite.flip_h = false
-		$Sprite/swordPos.position = Vector2(-72, -26)
+		$Sprite/swordPos.position = Vector2(-245, -10)
 		if state != CROUCH and state != ATTACK and state != JUMP:
 			state = WALK
 		left = true
@@ -90,7 +90,7 @@ func _physics_process(delta):
 			if !damaged:
 				motion.x = 0
 		else:
-			motion.x = lerp(motion.x, 0, 0.001)
+			motion.x = lerp(motion.x, 0, 0.3)
 					
 	if Input.is_action_just_pressed("ui_switch"):
 		state = CROUCH
@@ -106,11 +106,11 @@ func _physics_process(delta):
 			can_jump = false
 			temp = true
 			motion.y = -JUMP_HEIGHT
-		if friction:
-			motion.x = lerp(motion.x, 0, 0.2)
 	if Input.is_action_just_released("ui_up"):
 		if motion.y < 0:
 			motion.y *= 0.5;
+		if friction:
+			motion.x = lerp(motion.x, 0, 0.05)
 			
 	if is_on_floor():
 		can_jump = true
@@ -129,6 +129,14 @@ func _physics_process(delta):
 			k.connect("timeout", self, "stopJump", [k])
 			add_child(k)
 			k.start()
+		if friction:
+			motion.x = lerp(motion.x, 0, 0.2)
+			
+	if thrust:
+		if left:
+			motion.x -= MAX_SPEED
+		else:
+			motion.x += MAX_SPEED
 		
 	motion = move_and_slide(motion, UP)
 	pass
@@ -145,21 +153,9 @@ func attack():
 	var a = ATK.instance()
 	a.damage = 2
 	$Sprite/swordPos.add_child(a)
-	
-	if combo == 0:
-		combo = 1
-		$Sprite.play("swing")
-		$comboTimer.stop(); $comboTimer.start()
-	elif combo == 1:
-		combo = 2
-		$Sprite.play("uppercut")
-		$comboTimer.stop(); $comboTimer.start()
-	elif combo == 2:
-		combo = 0
-		$Sprite.play("thrust")
-		friction = true
-		thrust = true
-		$attackTimer.start()
+	$Sprite.play("attack")
+	thrust = true
+	$attackTimer.start()
 
 func _on_frictionTimer_timeout():
 	thrust = false
