@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/healthBar.gd" type="Script" id=1]
 [ext_resource path="res://assets/ui/johnFace.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/ui/bar6.png" type="Texture" id=9]
 [ext_resource path="res://assets/ui/bar7.png" type="Texture" id=10]
 [ext_resource path="res://assets/ui/harryFace.png" type="Texture" id=11]
+[ext_resource path="res://assets/ui/charlotteFace.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -30,7 +31,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -80,7 +81,20 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 frames = SubResource( 2 )
 animation = "default"
 
-[node name="Label" type="Label" parent="healthBar" index="2"]
+[node name="charlotte" type="Sprite" parent="healthBar" index="2"]
+
+visible = false
+light_mask = 0
+position = Vector2( 124, -20 )
+texture = ExtResource( 12 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="bar" type="AnimatedSprite" parent="healthBar/charlotte" index="0"]
+
+frames = SubResource( 2 )
+animation = "default"
+
+[node name="Label" type="Label" parent="healthBar" index="3"]
 
 anchor_left = 0.0
 anchor_top = 0.0

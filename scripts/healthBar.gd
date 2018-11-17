@@ -7,6 +7,9 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
+	if globs.char_unlocked and !$charlotte.visible:
+		$charlotte.visible = true
 	$john/bar.frame = globs.hp[0]
 	$harry/bar.frame = globs.hp[1]
+	$charlotte/bar.frame = globs.hp[2]
 	$Label.text = str(Engine.get_frames_per_second())
