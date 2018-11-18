@@ -17,6 +17,7 @@ onready var johnScene = preload("res://assets/scenes/player_john.tscn")
 onready var harryScene = preload("res://assets/scenes/player_harry.tscn")
 onready var charlotteScene = preload("res://assets/scenes/player_charlotte.tscn")
 onready var monsterScene = preload("res://assets/scenes/harry_monster.tscn")
+onready var planeScene = preload("res://assets/scenes/plane.tscn")
 
 onready var cameraScene = preload("res://assets/scenes/DefaultCamera.tscn")
 var cam
@@ -60,6 +61,19 @@ func transform_monster():
 	k.add_child(cam)
 	charSlot.remove_child(current)
 	charSlot.add_child(k)
+	k.global_position = p
+	
+func transform_plane():
+	var charSlot = get_tree().current_scene.get_child(0).find_node("Characters")
+	var current = charSlot.get_child(0)
+	current.remove_child(cam)
+	var l = current.left
+	var k = planeScene.instance()
+	var p = current.global_position
+	k.add_child(cam)
+	charSlot.remove_child(current)
+	charSlot.add_child(k)
+	k.left = l
 	k.global_position = p
 	
 func transform_harry():

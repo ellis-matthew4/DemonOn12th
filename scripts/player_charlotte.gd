@@ -18,7 +18,7 @@ var combo = 0
 var thrust = false
 var friction = true
 
-enum { IDLE, JUMP, WALK, ATTACK, LADDER, CROUCH }
+enum { IDLE, JUMP, WALK, ATTACK, LADDER, CROUCH, FOLD }
 var state = IDLE
 var sub = IDLE
 
@@ -33,13 +33,14 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	if sub != LADDER:
+	if sub != LADDER and sub != FOLD:
 		match state:
 			IDLE: $Sprite.play("idle")
 			JUMP: $Sprite.play("jump")
 			WALK: $Sprite.play("walk")
 			ATTACK: pass
 			LADDER: pass
+			FOLD: $Sprite.play("fold")
 			CROUCH: $Sprite.play("crouch")
 			_: print("STATE FAILURE")
 	else:
@@ -49,11 +50,14 @@ func _physics_process(delta):
 		if state != CROUCH:
 			attack()
 		else:
-			globs.transform_monster()
+			sub = FOLD
 	
 	if Input.is_action_just_pressed("ui_pause"):
 		$PauseMenu.show()
 		get_tree().paused = true
+		
+	if sub == FOLD:
+		$Sprite.play("fold")
 	
 	if sub == LADDER:
 		$Sprite.play("climb")
@@ -147,6 +151,8 @@ func _physics_process(delta):
 func _on_animation_finished():
 	if state == ATTACK:
 		state = IDLE
+	if sub == FOLD:
+		globs.transform_plane()
 		
 func attack():
 	state = ATTACK
