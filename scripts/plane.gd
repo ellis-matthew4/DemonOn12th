@@ -61,25 +61,26 @@ func _physics_process(delta):
 				else:
 					motion.x = MAX_SPEED				
 		motion.y = (mult+1) * GRAVITY
-		
-	if !left:
-		$Sprite.flip_h = true
-		$Collider.scale.x = -1
-		if Input.is_action_pressed("ui_left"):
-			if angle > -90:
-				angle -= ACCEL * delta
-		if Input.is_action_pressed("ui_right"):
-			if angle < 90:
-				angle += ACCEL * delta
-	else:
-		$Sprite.flip_h = false
-		if Input.is_action_pressed("ui_left"):
-			if angle < 90:
-				angle += ACCEL * delta
-		if Input.is_action_pressed("ui_right"):
-			if angle > -90:
-				angle -= ACCEL * delta
-	rotation_degrees = angle
+	
+	if movable:
+		if !left:
+			$Sprite.flip_h = true
+			$Collider.scale.x = -1
+			if Input.is_action_pressed("ui_left"):
+				if angle > -90:
+					angle -= ACCEL * delta
+			if Input.is_action_pressed("ui_right"):
+				if angle < 90:
+					angle += ACCEL * delta
+		else:
+			$Sprite.flip_h = false
+			if Input.is_action_pressed("ui_left"):
+				if angle < 90:
+					angle += ACCEL * delta
+			if Input.is_action_pressed("ui_right"):
+				if angle > -90:
+					angle -= ACCEL * delta
+		rotation_degrees = angle
 	
 	if $RayCast2D.is_colliding():
 		movable = false
