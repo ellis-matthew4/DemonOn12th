@@ -3,14 +3,14 @@
 [ext_resource path="res://scripts/plane.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/plane.png" type="Texture" id=2]
 
-[node name="plane" type="KinematicBody2D" index="0"]
+[node name="plane" type="KinematicBody2D"]
 
 input_pickable = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 2
+collision_mask = 2
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -27,7 +27,7 @@ polygon = PoolVector2Array( -19.0487, -1.53072, 14.8357, -5.84601, 20.8021, 3.79
 
 enabled = true
 exclude_parent = true
-cast_to = Vector2( -16, 6 )
+cast_to = Vector2( -12, 12 )
 collision_mask = 1
 
 

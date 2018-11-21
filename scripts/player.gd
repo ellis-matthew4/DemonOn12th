@@ -11,7 +11,7 @@ const RUNE_SCENE = preload("res://assets/scenes/rune.tscn")
 const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 
 var motion = Vector2()
-var left = true
+var left = false
 var cooldown = false
 var damaged = false
 var can_jump = true
@@ -68,20 +68,21 @@ func _physics_process(delta):
 			motion.y = 0
 	else:
 		motion.y += GRAVITY
+		
+	if left:
+		$Sprite.flip_h = false
+		$Sprite/projectilePos.position = Vector2(-80,-20)
+	else:
+		$Sprite.flip_h = true
+		$Sprite/projectilePos.position = Vector2(80,-20)
 	
 	if Input.is_action_pressed("ui_right") and state != CROUCH:
 		state = WALK
 		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
-		$Sprite.flip_h = true
-		if left:
-			$Sprite/projectilePos.position = Vector2(80,-20)
 		left = false
 	elif Input.is_action_pressed("ui_left") and state != CROUCH:
 		state = WALK
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
-		$Sprite.flip_h = false
-		if !left:
-			$Sprite/projectilePos.position = Vector2(-80,-20)
 		left = true
 	else:
 		if state != CROUCH and state != JUMP and state != CAST:
@@ -175,3 +176,9 @@ func fireBall():
 	cooldown = true
 	$ProjectileTimer.start()
 	
+func hideGUI():
+	for c in $healthBar.get_children():
+		c.visible = false
+func showGUI():
+	for c in $healthBar.get_children():
+		c.visible = true

@@ -21,6 +21,8 @@ func _ready():
 	
 func _process(delta):
 	if active:
+		get_tree().call_group("playable_characters", "hideGUI")
+		get_tree().paused = true
 		get_node("TextBox").visible = true
 		if Input.is_action_just_pressed("ui_select"):
 			if current < len(dialogue):
@@ -53,6 +55,9 @@ func _process(delta):
 						dialogue(statement)
 						current += 1
 						wait = false
+	else:
+		get_tree().call_group("playable_characters", "showGUI")
+		get_tree().paused = false
 	
 func loadConstants(filename):
 	var file = File.new()

@@ -9,7 +9,7 @@ const LADDER_SPEED = 300
 const ATK = preload("res://assets/scenes/attackArea.tscn")
 
 var motion = Vector2()
-var left = false
+var left = true
 var damaged = false
 var can_jump = true
 var temp = false
@@ -27,6 +27,7 @@ onready var tilemap = get_tree().current_scene.find_node("midground")
 onready var dmgTimer = $dmgTimer
 
 func _ready():
+	add_to_group("playable_characters")
 	set_process(true)
 	
 func _process(delta):
@@ -73,17 +74,20 @@ func _physics_process(delta):
 	else:
 		motion.y += GRAVITY
 	
-	if Input.is_action_pressed("ui_right") and state != CROUCH:
-		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
+	if left:
+		$Sprite.flip_h = false
+		$Sprite/swordPos.position = Vector2(-245, -10)
+	else:
 		$Sprite.flip_h = true
 		$Sprite/swordPos.position = Vector2(245, -10)
+	
+	if Input.is_action_pressed("ui_right") and state != CROUCH:
+		motion.x = min(motion.x + ACCELERATION, MAX_SPEED)
 		if state != CROUCH and state != ATTACK and state != JUMP:
 			state = WALK
 		left = false
 	elif Input.is_action_pressed("ui_left") and state != CROUCH:
 		motion.x = max(motion.x - ACCELERATION, -MAX_SPEED)
-		$Sprite.flip_h = false
-		$Sprite/swordPos.position = Vector2(-245, -10)
 		if state != CROUCH and state != ATTACK and state != JUMP:
 			state = WALK
 		left = true
@@ -192,3 +196,10 @@ func stopJump(k):
 	temp = false
 	can_jump = false
 	remove_child(k)
+	
+func hideGUI():
+	for c in $healthBar.get_children():
+		c.visible = false
+func showGUI():
+	for c in $healthBar.get_children():
+		c.visible = true
