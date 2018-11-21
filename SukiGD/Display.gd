@@ -9,38 +9,54 @@ var constants
 var positions = {}
 var characters = {}
 var dialogue = []
-var current = -1
+var current = 0
 var active = false
 var click = false
+var wait = true
 
 func _ready():
 	get_tree().root.connect("size_changed", self, "reloadRes")
 	loadConstants("constants.json")
-	read("script1.json")
 	set_process(true)
-	pass
 	
 func _process(delta):
 	if active:
 		get_node("TextBox").visible = true
 		if Input.is_action_just_pressed("ui_select"):
-			current += 1
 			if current < len(dialogue):
 				var statement = dialogue[current]
 				if statement["action"] == "show":
 					Show(statement)
+					wait = true
 				elif statement["action"] == "hide":
 					Hide(statement)
+					wait = true
 				elif statement["action"] == "dialogue":
 					dialogue(statement)
+				current += 1
 			else:
 				hideAll()
-				current = -1
+				current = 0
 				active = false
+				wait = true
+		else:
+			if wait:
+				if current < len(dialogue):
+					var statement = dialogue[current]
+					if statement["action"] == "show":
+						Show(statement)
+						current += 1
+					elif statement["action"] == "hide":
+						Hide(statement)
+						current += 1
+					elif statement["action"] == "dialogue":
+						dialogue(statement)
+						current += 1
+						wait = false
 	
 func loadConstants(filename):
 	var file = File.new()
-	file.open("res://script/" + filename, File.READ)
+	file.open("res://SukiGD/dialogue/" + filename, File.READ)
 	var data = file.get_as_text()
 	file.close()
 	data = JSON.parse(data)
@@ -60,7 +76,7 @@ func loadConstants(filename):
 	
 func read(filename):
 	var file = File.new()
-	file.open("res://script/" + filename, File.READ)
+	file.open("res://SukiGD/dialogue/" + filename, File.READ)
 	var data = file.get_as_text()
 	file.close()
 	data = JSON.parse(data)
@@ -82,6 +98,8 @@ func Hide(s):
 	c.visible = false
 func hideAll():
 	get_node("TextBox").visible = false
+	get_node("TextBox/TextControl/Dialogue").text = ""
+	get_node("TextBox/TextControl/Name").text = ""
 	for c in charNodes.get_children():
 		c.global_position = Vector2(0,0)
 		c.visible = false

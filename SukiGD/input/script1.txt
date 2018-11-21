@@ -1,6 +1,6 @@
-show harry neutral at left
-show kayla neutral at right
-harry "This is a test."
-kayla happy "So it is."
-harry sad "It's pretty boring though."
-kayla sad "So it is."
+show john neutral at left
+show charlotte neutral at right
+john "This is a test."
+charlotte neutral "So it is."
+john neutral "It's pretty boring though."
+charlotte neutral "So it is."

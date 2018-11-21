@@ -2,26 +2,7 @@ POSITIONS:
 Position left = (0.3,0.6)
 Position right = (0.7,0.6)
 CHARACTERS:
-Character harry = "Harry"
-Emotion bloody1
-Emotion bloody2
-Emotion bloody3
-Emotion cry
-Emotion happy
-Emotion laugh
-Emotion mad
+Character john = "John"
 Emotion neutral
-Emotion sad
-Emotion shock
-Emotion shy
-Emotion smug
-Character kayla = "Kayla"
-Emotion cry
-Emotion happy
-Emotion laugh
-Emotion mad
+Character charlotte = "Charlotte"
 Emotion neutral
-Emotion sad
-Emotion shock
-Emotion smug
-Emotion think
