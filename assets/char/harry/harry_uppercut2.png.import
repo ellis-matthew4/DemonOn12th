@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/harry_attack_03.png-aa3037fc6787490799112d73054cebaa.stex"
+path="res://.import/harry_uppercut2.png-565ce5acfc227757602c44c79dbb9a4b.stex"
 
 [deps]
 
-source_file="res://assets/char/harry/harry_attack_03.png"
-dest_files=[ "res://.import/harry_attack_03.png-aa3037fc6787490799112d73054cebaa.stex" ]
+source_file="res://assets/char/harry/harry_uppercut2.png"
+dest_files=[ "res://.import/harry_uppercut2.png-565ce5acfc227757602c44c79dbb9a4b.stex" ]
 
 [params]
 
