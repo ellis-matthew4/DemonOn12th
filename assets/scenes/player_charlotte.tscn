@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://scripts/player_charlotte.gd" type="Script" id=1]
 [ext_resource path="res://assets/char/charlotte/charlotte_idle1.png" type="Texture" id=2]
@@ -33,19 +33,19 @@
 [ext_resource path="res://assets/char/charlotte/charlotte_climb_6.png" type="Texture" id=31]
 [ext_resource path="res://assets/char/charlotte/charlotte_climb_7.png" type="Texture" id=32]
 [ext_resource path="res://assets/char/charlotte/charlotte_climb_8.png" type="Texture" id=33]
-[ext_resource path="res://assets/char/charlotte/charlotte_jump_0.png" type="Texture" id=34]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_01.png" type="Texture" id=35]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_02.png" type="Texture" id=36]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_03.png" type="Texture" id=37]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_04.png" type="Texture" id=38]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_05.png" type="Texture" id=39]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_06.png" type="Texture" id=40]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_07.png" type="Texture" id=41]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_08.png" type="Texture" id=42]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_09.png" type="Texture" id=43]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_10.png" type="Texture" id=44]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_11.png" type="Texture" id=45]
-[ext_resource path="res://assets/char/charlotte/charlotte_walk_12.png" type="Texture" id=46]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_01.png" type="Texture" id=34]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_02.png" type="Texture" id=35]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_03.png" type="Texture" id=36]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_04.png" type="Texture" id=37]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_05.png" type="Texture" id=38]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_06.png" type="Texture" id=39]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_07.png" type="Texture" id=40]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_08.png" type="Texture" id=41]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_09.png" type="Texture" id=42]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_10.png" type="Texture" id=43]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_11.png" type="Texture" id=44]
+[ext_resource path="res://assets/char/charlotte/charlotte_walk_12.png" type="Texture" id=45]
+[ext_resource path="res://assets/char/charlotte/charlotte_jump_0.png" type="Texture" id=46]
 [ext_resource path="res://assets/scenes/healthBar.tscn" type="PackedScene" id=47]
 [ext_resource path="res://assets/scenes/PauseMenu.tscn" type="PackedScene" id=48]
 
@@ -83,15 +83,15 @@ animations = [ {
 "name": "climb",
 "speed": 24.0
 }, {
-"frames": [ ExtResource( 34 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ) ],
+"frames": [ ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ) ],
 "loop": true,
 "name": "walk",
 "speed": 25.0
+}, {
+"frames": [ ExtResource( 46 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=3]
@@ -104,6 +104,11 @@ height = 60.3456
 
 custom_solver_bias = 0.0
 extents = Vector2( 14.7303, 48.7422 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+custom_solver_bias = 0.0
+extents = Vector2( 2.31183, 43.7557 )
 
 [node name="player_charlotte" type="KinematicBody2D" groups=[
 "playable_characters",
@@ -137,6 +142,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Collider" type="CollisionShape2D" parent="." index="2"]
 
+visible = false
 position = Vector2( -0.927902, 1.04384 )
 shape = SubResource( 3 )
 
@@ -169,6 +175,7 @@ _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" index="0"]
 
+visible = false
 position = Vector2( 0, 1.10445 )
 shape = SubResource( 4 )
 
@@ -180,6 +187,23 @@ one_shot = false
 autostart = false
 
 [node name="PauseMenu" parent="." index="8" instance=ExtResource( 48 )]
+
+[node name="wallDetector" type="Area2D" parent="." index="9"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 4
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wallDetector" index="0"]
+
+shape = SubResource( 5 )
 
 [connection signal="animation_finished" from="Sprite" to="." method="_on_animation_finished"]
 

@@ -26,27 +26,13 @@ func _physics_process(delta):
 			motion.x *= -1
 				
 		motion.y = lerp(motion.y, GRAVITY, 0.05)
-	
-	if movable:
 		if !left:
 			$Sprite.flip_h = true
 			$Collider.scale.x = -1
-#			if Input.is_action_pressed("ui_left"):
-#				if angle > -90:
-#					angle -= ACCEL * delta
-#			if Input.is_action_pressed("ui_right"):
-#				if angle < 90:
-#					angle += ACCEL * delta
-#		else:
-#			$Sprite.flip_h = false
-#			if Input.is_action_pressed("ui_left"):
-#				if angle < 90:
-#					angle += ACCEL * delta
-#			if Input.is_action_pressed("ui_right"):
-#				if angle > -90:
-#					angle -= ACCEL * delta
-#		$Sprite.rotation_degrees = angle
-#		$Collider.rotation_degrees = angle
+			$RayCast2D.cast_to.x *= -1
+	else:
+		motion.x = 0
+		motion.y = GRAVITY * 20
 	
 	if $RayCast2D.is_colliding():
 		movable = false

@@ -16,7 +16,7 @@ _sections_unfolded = [ "Collision", "Transform" ]
 
 texture = ExtResource( 2 )
 offset = Vector2( 0, 4 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Collider" type="CollisionPolygon2D" parent="." index="1"]
 
@@ -27,7 +27,7 @@ polygon = PoolVector2Array( -19.0487, -1.53072, 14.8357, -5.84601, 20.8021, 3.79
 
 enabled = true
 exclude_parent = true
-cast_to = Vector2( -12, 12 )
-collision_mask = 1
+cast_to = Vector2( -20, 12 )
+collision_mask = 2
 
 

@@ -145,7 +145,10 @@ func _physics_process(delta):
 			motion.x -= MAX_SPEED
 		else:
 			motion.x += MAX_SPEED
-		
+			
+	if $wallDetector.get_overlapping_bodies().size() > 0:
+		position.y -= 10
+					
 	motion = move_and_slide(motion, UP)
 	pass
 	
