@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://SukiGD/Display.gd" type="Script" id=1]
 [ext_resource path="res://assets/char/john/john_neutral.png" type="Texture" id=2]
 [ext_resource path="res://assets/char/charlotte/charlotte_neutral.png" type="Texture" id=3]
-[ext_resource path="res://assets/bg/office.png" type="Texture" id=4]
-[ext_resource path="res://SukiGD/textBox.png" type="Texture" id=5]
-[ext_resource path="res://SukiGD/nameBox.png" type="Texture" id=6]
-[ext_resource path="res://SukiGD/DejaVuSans.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/char/harry/harry_neutral.png" type="Texture" id=4]
+[ext_resource path="res://assets/bg/office.png" type="Texture" id=5]
+[ext_resource path="res://SukiGD/textBox.png" type="Texture" id=6]
+[ext_resource path="res://SukiGD/nameBox.png" type="Texture" id=7]
+[ext_resource path="res://SukiGD/DejaVuSans.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -26,12 +27,21 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=5]
+
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [sub_resource type="DynamicFont" id=3]
 
 size = 25
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 7 )
+font_data = ExtResource( 8 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=4]
@@ -39,10 +49,10 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 20
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 7 )
+font_data = ExtResource( 8 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="SukiGD" type="CanvasLayer"]
+[node name="SukiGD" type="CanvasLayer" index="0"]
 
 pause_mode = 2
 layer = 1
@@ -54,8 +64,6 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
 
 [node name="Characters" type="Node2D" parent="." index="0"]
-
-editor/display_folded = true
 
 [node name="John" type="AnimatedSprite" parent="Characters" index="0"]
 
@@ -69,6 +77,12 @@ visible = false
 frames = SubResource( 2 )
 animation = "default"
 
+[node name="Harry" type="AnimatedSprite" parent="Characters" index="2"]
+
+visible = false
+frames = SubResource( 5 )
+animation = "default"
+
 [node name="Scenes" type="Node2D" parent="." index="1"]
 
 editor/display_folded = true
@@ -78,7 +92,7 @@ _sections_unfolded = [ "Z Index" ]
 [node name="Office" type="Sprite" parent="Scenes" index="0"]
 
 visible = false
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
@@ -86,13 +100,13 @@ _sections_unfolded = [ "Offset" ]
 
 visible = false
 position = Vector2( 642.647, 598.048 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Namebox" type="Sprite" parent="TextBox" index="0"]
 
 position = Vector2( -317.739, -96.5609 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="TextControl" type="Control" parent="TextBox" index="1"]
 
