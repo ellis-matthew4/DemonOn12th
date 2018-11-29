@@ -3,7 +3,7 @@ extends CanvasLayer
 signal Switch
 
 var SPEED = 1
-const LIMIT = 400
+const LIMIT = 200
 const PATH = "res://assets/scenes/Menu.tscn"
 onready var bg = $backdrop
 var moved = 0

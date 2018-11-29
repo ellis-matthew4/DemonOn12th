@@ -1,3 +1,4 @@
+scene office
 show john neutral at left
 show charlotte neutral at right
 john "This is a test."

@@ -6,3 +6,7 @@ Character john = "John"
 Emotion neutral
 Character charlotte = "Charlotte"
 Emotion neutral
+Character harry = "Harry"
+Emotion neutral
+BACKDROPS:
+Backdrop office = "Office"
