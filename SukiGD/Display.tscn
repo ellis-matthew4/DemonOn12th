@@ -1,175 +1,185 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://SukiGD/Display.gd" type="Script" id=1]
-[ext_resource path="res://assets/char/john/john_neutral.png" type="Texture" id=2]
-[ext_resource path="res://assets/char/charlotte/charlotte_neutral.png" type="Texture" id=3]
-[ext_resource path="res://assets/char/harry/harry_neutral.png" type="Texture" id=4]
-[ext_resource path="res://assets/bg/office.png" type="Texture" id=5]
-[ext_resource path="res://SukiGD/textBox.png" type="Texture" id=6]
-[ext_resource path="res://SukiGD/nameBox.png" type="Texture" id=7]
-[ext_resource path="res://SukiGD/DejaVuSans.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://SukiGD/resources/harryFrames.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://SukiGD/resources/johnFrames.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://SukiGD/resources/charlotteFrames.tres" type="SpriteFrames" id=4]
+[ext_resource path="res://assets/char/chester/chester.png" type="Texture" id=5]
+[ext_resource path="res://assets/bg/office.png" type="Texture" id=6]
+[ext_resource path="res://SukiGD/textBox.png" type="Texture" id=7]
+[ext_resource path="res://SukiGD/nameBox.png" type="Texture" id=8]
+[ext_resource path="res://SukiGD/playtime.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
-
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "default",
+"name": "neutral",
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=2]
-
-animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=5]
-
-animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 24
+font_data = ExtResource( 9 )
 
-size = 25
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 8 )
-_sections_unfolded = [ "Font", "Settings" ]
+[sub_resource type="Animation" id=4]
+resource_name = "fade_from_black"
+tracks/0/type = "value"
+tracks/0/path = NodePath("black2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="Animation" id=5]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/path = NodePath("black2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
 
-size = 20
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 8 )
-_sections_unfolded = [ "Font", "Settings" ]
+[sub_resource type="DynamicFont" id=6]
+size = 24
+use_mipmaps = true
+font_data = ExtResource( 9 )
 
-[node name="SukiGD" type="CanvasLayer" index="0"]
-
+[node name="root" type="CanvasLayer"]
 pause_mode = 2
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause" ]
 
-[node name="Characters" type="Node2D" parent="." index="0"]
+[node name="Characters" type="Node2D" parent="."]
 
-[node name="John" type="AnimatedSprite" parent="Characters" index="0"]
+[node name="harry" type="AnimatedSprite" parent="Characters"]
+visible = false
+frames = ExtResource( 2 )
+animation = "crazy"
 
+[node name="john" type="AnimatedSprite" parent="Characters"]
+visible = false
+frames = ExtResource( 3 )
+animation = "angry"
+
+[node name="charlotte" type="AnimatedSprite" parent="Characters"]
+visible = false
+frames = ExtResource( 4 )
+animation = "angry"
+
+[node name="chester" type="AnimatedSprite" parent="Characters"]
 visible = false
 frames = SubResource( 1 )
-animation = "default"
+animation = "angry"
 
-[node name="Charlotte" type="AnimatedSprite" parent="Characters" index="1"]
-
-visible = false
-frames = SubResource( 2 )
-animation = "default"
-
-[node name="Harry" type="AnimatedSprite" parent="Characters" index="2"]
-
-visible = false
-frames = SubResource( 5 )
-animation = "default"
-
-[node name="Scenes" type="Node2D" parent="." index="1"]
-
-editor/display_folded = true
+[node name="Scenes" type="Node2D" parent="."]
 z_index = -1
-_sections_unfolded = [ "Z Index" ]
 
-[node name="Office" type="Sprite" parent="Scenes" index="0"]
-
+[node name="office" type="Sprite" parent="Scenes"]
 visible = false
-texture = ExtResource( 5 )
-centered = false
-_sections_unfolded = [ "Offset" ]
-
-[node name="TextBox" type="Sprite" parent="." index="2"]
-
-visible = false
-position = Vector2( 642.647, 598.048 )
 texture = ExtResource( 6 )
-_sections_unfolded = [ "Transform" ]
+centered = false
 
-[node name="Namebox" type="Sprite" parent="TextBox" index="0"]
-
-position = Vector2( -317.739, -96.5609 )
-texture = ExtResource( 7 )
-
-[node name="TextControl" type="Control" parent="TextBox" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="black" type="ColorRect" parent="Scenes"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
+rect_min_size = Vector2( 1280, 720 )
+color = Color( 0, 0, 0, 1 )
 
-[node name="Dialogue" type="Label" parent="TextBox/TextControl" index="0"]
+[node name="TextBox" type="Sprite" parent="."]
+position = Vector2( 640, 598 )
+texture = ExtResource( 7 )
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -377.0
-margin_top = -69.0
-margin_right = 376.0
-margin_bottom = 83.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
+[node name="Namebox" type="Sprite" parent="TextBox"]
+position = Vector2( -272.941, -110.407 )
+texture = ExtResource( 8 )
+
+[node name="TextControl" type="Control" parent="TextBox"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Dialogue" type="Label" parent="TextBox/TextControl"]
+margin_left = -383.0
+margin_top = -83.0
+margin_right = 379.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "This is sample text"
+autowrap = true
+
+[node name="Name" type="Label" parent="TextBox/TextControl"]
+margin_left = -364.0
+margin_top = -126.0
+margin_right = -112.0
+margin_bottom = -91.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-autowrap = true
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
+text = "Name of character go here"
 
-[node name="Name" type="Label" parent="TextBox/TextControl" index="1"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fade_from_black = SubResource( 4 )
+anims/fade_to_black = SubResource( 5 )
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -412.0
-margin_top = -114.0
-margin_right = -220.0
-margin_bottom = -79.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+[node name="Centered" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -360.0
+margin_top = -40.0
+margin_right = 360.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 720, 0 )
+custom_fonts/font = SubResource( 6 )
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
+autowrap = true
 
+[node name="Positions" type="Node2D" parent="."]
+editor/display_folded = true
 
+[node name="left" type="Position2D" parent="Positions"]
+position = Vector2( 200, 432 )
+
+[node name="right" type="Position2D" parent="Positions"]
+position = Vector2( 1080, 432 )
+
+[node name="center" type="Position2D" parent="Positions"]
+position = Vector2( 640, 432 )
+
+[node name="black2" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 1280, 720 )
+color = Color( 0, 0, 0, 0 )
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -395.0
+margin_top = -204.0
+margin_right = 395.0
+margin_bottom = -169.0
+rect_min_size = Vector2( 790, 35 )
+alignment = 1
+
+[connection signal="lineFinished" from="." to="." method="_on_root_lineFinished"]

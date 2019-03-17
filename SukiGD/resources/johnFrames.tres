@@ -1,0 +1,31 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=2]
+
+[ext_resource path="res://assets/char/john_old/Emotes/john_angry.png" type="Texture" id=1]
+[ext_resource path="res://assets/char/john_old/Emotes/john_neutral.png" type="Texture" id=2]
+[ext_resource path="res://assets/char/john_old/Emotes/john_think.png" type="Texture" id=3]
+[ext_resource path="res://assets/char/john_old/Emotes/john_sigh.png" type="Texture" id=4]
+
+[resource]
+
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "angry",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "neutral",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "think",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "sigh",
+"speed": 5.0
+} ]
+

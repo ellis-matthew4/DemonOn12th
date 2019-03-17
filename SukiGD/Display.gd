@@ -4,116 +4,183 @@ onready var projectRes = Vector2(ProjectSettings.get_setting("display/window/siz
 onready var charNodes = get_node("Characters")
 onready var textBox = get_node("TextBox/TextControl/Dialogue")
 onready var nameBox = get_node("TextBox/TextControl/Name")
+var choice = preload("res://SukiGD/Choice.tscn")
 
-var constants
-var positions = {}
-var characters = {}
-var backdrops = {}
-var dialogue = []
-var current = 0
-var active = false
-var click = false
-var wait = true
+var menuDict
+var labels = {}
+var variables = {}
+var stack = []
+var active = true
+var skip = false
+var auto = false
+var working = false
+var able = true
+
+var tempSave
+
+var line
+var TEXT_SPEED = 10
+var AUTO_SPEED = 2
+var finishLine = false
+
+var path_to_folder = "res://SukiGD/output/"
+var currentScript
+
+signal done
+signal lineFinished
 
 func _ready():
-	loadConstants("constants.json") #Only run this command when necessary!
 	set_process(true)
 	
 func _process(delta):
-	if active: #Triggers upon a read() call
-		get_tree().call_group("playable_characters", "hideGUI") #Hides the HUD
-		get_tree().paused = true #Remove this to disable pausing upon dialogue load
-		get_node("TextBox").visible = true
-		if Input.is_action_just_pressed("ui_select"):
-			if current < len(dialogue):
-				var statement = dialogue[current]
-				if statement["action"] == "show":
-					Show(statement)
-					wait = true
-				elif statement["action"] == "hide":
-					Hide(statement)
-					wait = true
-				elif statement["action"] == "dialogue":
-					dialogue(statement)
-				elif statement["action"] == "scene":
-					Scene(statement)
-				current += 1
-			else: # Reset and prepare for the next dialogue
-				hideAll()
-				current = 0
-				active = false
-				wait = true
-		else:
-			if wait: #This block of code prevents having to click for show and hide statements.
-				if current < len(dialogue):
-					var statement = dialogue[current]
-					if statement["action"] == "show":
-						Show(statement)
-						current += 1
-					elif statement["action"] == "hide":
-						Hide(statement)
-						current += 1
-					elif statement["action"] == "scene":
-						Scene(statement)
-						current += 1
-					elif statement["action"] == "dialogue":
-						dialogue(statement)
-						current += 1
-						wait = false
+	if active:
+		if len(stack) > 0: #Triggers upon calling or jumping
+			if len(stack[0]) == 0:
+				stack.pop_front()
+			if Input.is_action_just_pressed("ui_select"):
+				if line.has("String"):
+					handleDialogue()
+					yield(get_tree().create_timer(0.1), "timeout")
+			elif skip:
+				if len(stack) > 0:
+					if stack.front().front()["action"] != "menu":
+						nextLine()
+				else:
+					end()
+		elif Input.is_action_just_pressed("ui_select") and working:
+			end() # this is the problem
+	if Input.is_key_pressed(KEY_CONTROL):
+		skip = true
 	else:
-		get_tree().call_group("playable_characters", "showGUI") #Shows the HUD
-		get_tree().paused = false
-	
-func loadConstants(filename): # Load the constants to dictionaries for easy access
-	var file = File.new()
-	file.open("res://SukiGD/dialogue/" + filename, File.READ)
-	var data = file.get_as_text()
-	file.close()
-	data = JSON.parse(data)
-	if data.error != OK:
-		print("FAILED TO LOAD FILE " + filename)
-		return
-	constants = data.result
-	for p in constants["Positions"]: #Create actual game positions that can be used
-		var pos = Vector2()
-		pos.x = float(constants["Positions"][p]["x"])
-		pos.y = float(constants["Positions"][p]["y"])
-		positions[p] = pos * projectRes
-	var temp = constants["Characters"] #Create references to Character nodes
-	for c in temp:
-		characters[c] = temp[c]
-		characters[c]["path"] = characters[c]["path"].replace('"',"")
-	if constants.has("Backdrops"): #Create references to Scene nodes
-		backdrops = constants["Backdrops"]
-		for b in backdrops:
-			backdrops[b] = backdrops[b].replace('"',"")
+		skip = false
+	if Input.is_key_pressed(KEY_F):
+		print(get_tree().paused)
+		
+func handleDialogue():
+	if textBox.text == line["String"] or $Centered.text == line["String"]:
+		nextLine()
+	else:
+		finishLine = true
 	
 func read(filename):
 	var file = File.new()
-	file.open("res://SukiGD/dialogue/" + filename, File.READ) #Default filepath, you probably want to change this
+	file.open(path_to_folder + filename, File.READ)
 	var data = file.get_as_text()
 	file.close()
 	data = JSON.parse(data)
 	if data.error != OK:
 		print("FAILED TO READ FILE " + filename)
 		return
-	dialogue = data.result["dialogue"]
-	active = true #Activate the dialogue loop
-			
+	labels = data.result["labels"]
+	currentScript = filename
+
+func nextLine():
+	if len(stack) > 0:
+		if len(stack.front()) > 0:
+			line = stack[0].pop_front()
+			statement()
+		else:
+			stack.pop_front()
+			nextLine()
+	else:
+		if active:
+			end()
+		else:
+			return
+
+func statement():
+	if line == null or line == {}:
+		return
+	if $Centered.text != "" or line["action"] != "centered":
+		$Centered.text = ""
+	match line["action"]:
+		"show":
+			Show(line)
+		"hide":
+			Hide(line)
+		"dialogue":
+			if !skip:
+				dialogue(line)
+			else:
+				nameBox.text = line["char"].capitalize()
+				textBox.text = line["String"]
+		"adialogue":
+			if !skip:
+				adialogue(line)
+			else:
+				textBox.text = line["String"]
+		"centered":
+			if !skip:
+				centered(1)
+			else:
+				$Centered.text = line["String"]
+		"scene":
+			Scene(line)
+		"call":
+			call(line["label"])
+		"jump":
+			jump(line["label"])
+		"var":
+			variable(line)
+		"menu":
+#			print("Menu detected")
+			menuDict = line
+			for k in line.keys():
+				if k != "action":
+					option(k)
+			menu()
+		"window":
+			window(line)
+		"play":
+			play(line)
+		"purchase":
+			purchase(line)
+		"wait":
+			yield(get_tree().create_timer(int(line["args"][0])),"timeout")
+		"return": nextLine()
+		_:
+			print(line)
+			nextLine()
+	
+func call(label):
+	if able:
+		get_tree().call_group("playable_characters", "hideGUI") #My games' command to hide the HUD
+		get_tree().paused = true #Remove this to disable pausing upon dialogue load
+		get_node("TextBox").visible = true
+		working = true
+		push(label)
+		nextLine()
+	
+func jump(label):
+	if able:
+		working = true
+		stack = [labels[label].duplicate()]
+		nextLine()
+	
+func push(label):
+	var label2 = labels[label].duplicate()
+	stack.push_front(label2)
+	
+func pushList(l):
+	var l2 = l.duplicate()
+	stack.push_front(l2)
+	
 func Show(s): # Show statement
-	var c = charNodes.get_node(characters[s["char"]]["path"])
-	c.global_position = positions[s["pos"]]
-	c.frame = characters[s["char"]][s["emote"]]
+	var c = charNodes.get_node(s["char"])
+	c.global_position = $Positions.get_node(s["pos"]).global_position
+	c.play(s["emote"])
 	c.visible = true
+	nextLine()
 	
 func Hide(s): # Hide statement
-	var c = charNodes.get_node(characters[s["char"]]["path"])
+	var c = charNodes.get_node(s["char"])
 	c.global_position = Vector2(0,0)
 	c.visible = false
+	nextLine()
 func hideAll(): # Hides SukiGD
 	get_node("TextBox").visible = false
-	get_node("TextBox/TextControl/Dialogue").text = ""
-	get_node("TextBox/TextControl/Name").text = ""
+	textBox.text = ""
+	nameBox.text = ""
 	for c in charNodes.get_children():
 		c.global_position = Vector2(0,0)
 		c.visible = false
@@ -122,13 +189,111 @@ func hideAll(): # Hides SukiGD
 		
 func dialogue(s): # Displays a line of dialogue
 	if s.has("emote"):
-		var c = charNodes.get_node(characters[s["char"]]["path"])
-		c.frame = characters[s["char"]][s["emote"]]
-	textBox.text = s["String"]
+		var c = charNodes.get_node(s["char"])
+		c.play(s["emote"])
+	$TextBox/Namebox.visible = true
+	nameBox.visible = true
 	nameBox.text = s["char"].capitalize()
+	rollingDisplay(1)
+
+func adialogue(s):
+	$TextBox/Namebox.visible = false
+	nameBox.visible = false
+	rollingDisplay(1)
+	
+func centered(index):
+	if !line.has("String") or skip:
+		return
+	if finishLine:
+		textBox.text = line["String"]
+		index = len(line["String"])
+		finishLine = false
+	if index <= len(line["String"]):
+		$Centered.text = line["String"].substr(0,index)
+		yield(get_tree().create_timer(pow(10,-TEXT_SPEED)), "timeout")
+		centered(index + 1)
+	else:
+		emit_signal("lineFinished")
+	
+func rollingDisplay(index):
+	if !line.has("String") or skip:
+		return
+	if finishLine:
+		textBox.text = line["String"]
+		index = len(line["String"])
+		finishLine = false
+	if index <= len(line["String"]):
+		textBox.text = line["String"].substr(0,index)
+		yield(get_tree().create_timer(pow(10,-TEXT_SPEED)), "timeout")
+		rollingDisplay(index + 1)
+	else:
+		emit_signal("lineFinished")
 	
 func Scene(s): # Changes the backdrop to the current scene
 	for sc in $Scenes.get_children():
 		sc.visible = false
-	var sceneName = backdrops[s["scene"]]
-	get_node("Scenes/" + sceneName).visible = true
+	get_node("Scenes/" + s["scene"]).visible = true
+	nextLine()
+		
+func end():
+	line = {}
+	get_tree().paused = false
+	hideAll()
+	get_tree().call_group("playable_characters", "showGUI") #My games' command to show the HUD
+	working = false
+	emit_signal("done")
+	able = false
+	yield(get_tree().create_timer(0.5), "timeout")
+	able = true
+	
+func variable(s):
+	variables[s["name"]] = s["value"]
+	nextLine()
+	
+func get(variable):
+	return variables[variable]
+	
+func option(o):
+	var c = choice.instance()
+	$Menu.add_child(c)
+	c.text = o
+	c.connect("interact", self, "menu_interact", [o])
+	
+func menu():
+	$Menu.visible = true
+	$TextBox.visible = false
+	active = false
+	nextLine()
+	
+func menu_interact(o):
+	pushList(menuDict[o])
+	$Menu.visible = false
+	$TextBox.visible = true
+	active = true
+	for c in $Menu.get_children():
+		c.queue_free()
+	menuDict = {}
+	nextLine()
+	
+func window(s):
+	if s["value"] == "hide":
+		$TextBox.visible = false
+	else:
+		$TextBox.visible = true
+	nextLine()
+		
+func play(s):
+	$AnimationPlayer.play(s["anim"])
+	nextLine()
+
+func _on_root_lineFinished():
+	if auto:
+		yield(get_tree().create_timer(AUTO_SPEED), "timeout")
+		nextLine()
+		
+func purchase(s):
+	if int(s["args"][0]) <= globs.money:
+		globs.addMoney(-1 * int(s["args"][0]))
+		call(s["args"][1])
+	else:
+		call(s["args"][2])

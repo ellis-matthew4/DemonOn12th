@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/PauseMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/gear_grey.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/gear_black.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/AlbertText-Bold.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/scenes/PhoneMenu.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 
@@ -36,7 +37,7 @@ tracks/1/keys = {
 "values": [ 0.0, 359.0 ]
 }
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
 
 size = 80
 use_mipmaps = false
@@ -78,7 +79,6 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="gear" type="Sprite" parent="AnimationPlayer" index="0"]
 
-visible = false
 position = Vector2( 2.27251, 133.715 )
 rotation = 0.13164
 texture = ExtResource( 2 )
@@ -87,7 +87,6 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="gear2" type="Sprite" parent="AnimationPlayer" index="1"]
 
-visible = false
 position = Vector2( 1237.01, 571.693 )
 rotation = 0.13164
 texture = ExtResource( 3 )
@@ -129,7 +128,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.523438, 0.0674744, 0.0674744, 1 )
 text = "PAUSED"
 percent_visible = 1.0
@@ -274,6 +273,13 @@ text = "Quit"
 flat = false
 align = 1
 
+[node name="PhoneMenu" parent="." index="2" instance=ExtResource( 5 )]
+
+margin_left = 668.0
+margin_top = 349.0
+margin_right = 708.0
+margin_bottom = 389.0
+
 [connection signal="pressed" from="Control/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 
 [connection signal="pressed" from="Control/VBoxContainer/options" to="." method="_on_options_pressed"]
@@ -281,5 +287,11 @@ align = 1
 [connection signal="pressed" from="Control/VBoxContainer/save" to="." method="_on_save_pressed"]
 
 [connection signal="pressed" from="Control/VBoxContainer/quit" to="." method="_on_quit_pressed"]
+
+[connection signal="loadgame" from="PhoneMenu" to="." method="_on_load_pressed"]
+
+[connection signal="resume" from="PhoneMenu" to="." method="_on_resume_pressed"]
+
+[connection signal="savegame" from="PhoneMenu" to="." method="_on_save_pressed"]
 
 

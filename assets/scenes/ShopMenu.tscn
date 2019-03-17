@@ -1,0 +1,343 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/ShopMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/ui/shop.png" type="Texture" id=2]
+[ext_resource path="res://assets/scenes/ItemDisplay.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/meds.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/painkiller.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/sus.png" type="Texture" id=6]
+[ext_resource path="res://SukiGD/playtime.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="ShopMenu" type="CanvasLayer" index="0"]
+
+pause_mode = 2
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( 290, 60 )
+texture = ExtResource( 2 )
+centered = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 325.0
+margin_top = 125.0
+margin_right = 611.0
+margin_bottom = 633.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="DisplayPanel" parent="VBoxContainer" index="0" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+size_flags_horizontal = 12
+size_flags_vertical = 12
+_sections_unfolded = [ "Rect", "Size Flags" ]
+tex = ExtResource( 4 )
+buttonText = "Medicine"
+buttonDesc = "Some cheap painkillers. Heal a small amount of health."
+
+[node name="ColorRect" parent="VBoxContainer/DisplayPanel" index="0"]
+
+margin_right = 262.0
+
+[node name="Container" parent="VBoxContainer/DisplayPanel" index="1"]
+
+margin_right = 258.0
+
+[node name="VBoxContainer" parent="VBoxContainer/DisplayPanel/Container" index="1"]
+
+margin_right = 251.0
+
+[node name="Label" parent="VBoxContainer/DisplayPanel/Container/VBoxContainer" index="0"]
+
+margin_right = 183.0
+
+[node name="Label2" parent="VBoxContainer/DisplayPanel/Container/VBoxContainer" index="1"]
+
+margin_right = 183.0
+
+[node name="DisplayPanel2" parent="VBoxContainer" index="1" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+margin_top = 82.0
+margin_bottom = 160.0
+size_flags_horizontal = 12
+size_flags_vertical = 12
+_sections_unfolded = [ "Rect", "Size Flags" ]
+tex = ExtResource( 5 )
+buttonText = "Pain-B-Gone"
+buttonDesc = "Clinical-strength painkillers. Heal a good amount of health."
+index = 1
+
+[node name="ColorRect" parent="VBoxContainer/DisplayPanel2" index="0"]
+
+margin_right = 262.0
+
+[node name="Container" parent="VBoxContainer/DisplayPanel2" index="1"]
+
+margin_right = 258.0
+
+[node name="VBoxContainer" parent="VBoxContainer/DisplayPanel2/Container" index="1"]
+
+margin_right = 251.0
+
+[node name="Label" parent="VBoxContainer/DisplayPanel2/Container/VBoxContainer" index="0"]
+
+margin_right = 183.0
+
+[node name="Label2" parent="VBoxContainer/DisplayPanel2/Container/VBoxContainer" index="1"]
+
+margin_right = 183.0
+
+[node name="DisplayPanel3" parent="VBoxContainer" index="2" instance=ExtResource( 3 )]
+
+editor/display_folded = true
+margin_top = 164.0
+margin_bottom = 242.0
+size_flags_horizontal = 12
+size_flags_vertical = 12
+_sections_unfolded = [ "Rect", "Size Flags" ]
+tex = ExtResource( 6 )
+buttonText = "Suspicious Pills"
+buttonDesc = "Probably prescription painkillers. They'll heal you fully, though."
+index = 2
+
+[node name="ColorRect" parent="VBoxContainer/DisplayPanel3" index="0"]
+
+margin_right = 262.0
+
+[node name="Container" parent="VBoxContainer/DisplayPanel3" index="1"]
+
+margin_right = 258.0
+
+[node name="VBoxContainer" parent="VBoxContainer/DisplayPanel3/Container" index="1"]
+
+margin_right = 251.0
+
+[node name="Label" parent="VBoxContainer/DisplayPanel3/Container/VBoxContainer" index="0"]
+
+margin_right = 183.0
+
+[node name="Label2" parent="VBoxContainer/DisplayPanel3/Container/VBoxContainer" index="1"]
+
+margin_right = 183.0
+
+[node name="Container" type="Container" parent="." index="2"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 614.0
+margin_top = 351.0
+margin_right = 955.0
+margin_bottom = 571.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="Container" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 341.0
+margin_bottom = 220.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "Sample text"
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Size Flags", "custom_fonts" ]
+
+[node name="Container2" type="Container" parent="." index="3"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 723.0
+margin_top = 71.0
+margin_right = 975.0
+margin_bottom = 103.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+
+[node name="Label" type="Label" parent="Container2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 252.0
+margin_bottom = 31.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "Money: $XXXX"
+align = 2
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Size Flags", "custom_fonts" ]
+
+[node name="Buttons" type="HBoxContainer" parent="." index="4"]
+
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 611.0
+margin_top = 586.0
+margin_right = 958.0
+margin_bottom = 626.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Button" type="Button" parent="Buttons" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 113.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Buy"
+flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Button3" type="Button" parent="Buttons" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 117.0
+margin_right = 230.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Sell"
+flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Button2" type="Button" parent="Buttons" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 234.0
+margin_right = 347.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Exit"
+flat = false
+align = 1
+_sections_unfolded = [ "Size Flags" ]
+
+[connection signal="interact" from="VBoxContainer/DisplayPanel" to="." method="_on_DisplayPanel_interact"]
+
+[connection signal="interact" from="VBoxContainer/DisplayPanel2" to="." method="_on_DisplayPanel_interact"]
+
+[connection signal="interact" from="VBoxContainer/DisplayPanel3" to="." method="_on_DisplayPanel_interact"]
+
+[connection signal="pressed" from="Buttons/Button" to="." method="_on_Buy_pressed"]
+
+[connection signal="pressed" from="Buttons/Button3" to="." method="_on_Sell_pressed"]
+
+[connection signal="pressed" from="Buttons/Button2" to="." method="_on_Exit_pressed"]
+
+
+[editable path="VBoxContainer/DisplayPanel"]
+[editable path="VBoxContainer/DisplayPanel2"]
+[editable path="VBoxContainer/DisplayPanel3"]

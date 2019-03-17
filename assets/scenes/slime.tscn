@@ -56,12 +56,12 @@ extents = Vector2( 12, 8 )
 custom_solver_bias = 0.0
 extents = Vector2( 13.2072, 12.912 )
 
-[node name="root" type="RigidBody2D"]
+[node name="root" type="RigidBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 2
-collision_mask = 2
-mode = 0
+collision_mask = 5
+mode = 2
 mass = 1.0
 friction = 1.0
 bounce = 0.0
@@ -85,7 +85,7 @@ JUMP = -200
 
 frames = SubResource( 1 )
 animation = "idle"
-frame = 16
+frame = 12
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]

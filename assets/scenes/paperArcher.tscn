@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/paperArcher.gd" type="Script" id=1]
+[ext_resource path="res://assets/enemies/paperArcher/paperArcher_pull3.png" type="Texture" id=2]
+[ext_resource path="res://assets/enemies/paperArcher/paperArcher_idle1.png" type="Texture" id=3]
+[ext_resource path="res://assets/enemies/paperArcher/paperArcher_idle2.png" type="Texture" id=4]
+[ext_resource path="res://assets/enemies/paperArcher/paperArcher_pull1.png" type="Texture" id=5]
+[ext_resource path="res://assets/enemies/paperArcher/paperArcher_pull2.png" type="Texture" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "wait",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "draw",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 28.0045 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14.5175, 31.7159 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( 0.2453, -29.1524, -6.29506, -18.457, -9.68065, -18.1493, -11.5273, -15.3792, -7.52618, -12.917, -6.14116, -6.37663, -4.6792, -3.52965, -2.75557, -1.14434, -3.44808, 13.0136, -1.60139, 23.7169, 1.24559, 24.0247, 3.16922, 13.5601, 2.24588, -1.17644, 8.47845, -6.06399, 8.4015, -15.3744, 11.7102, -16.6824, 11.0176, -18.683, 8.17067, -18.1444, 7.93983, -21.2992, 3.93867, -27.0701 )
+
+[node name="paperSoldier" type="RigidBody2D"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 12
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 5.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+
+frames = SubResource( 1 )
+animation = "idle"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="hitbox" type="Area2D" parent="." index="2"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="box" type="CollisionShape2D" parent="hitbox" index="0"]
+
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="4"]
+
+occluder = SubResource( 4 )
+light_mask = 1
+
+[node name="ArrowPosition" type="Position2D" parent="." index="5"]
+
+position = Vector2( -8, 11 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="6"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -500, 0 )
+collision_mask = 1
+
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+

@@ -2,44 +2,46 @@ extends KinematicBody2D
 
 const MAX_SPEED = 500
 const ACCEL = 10
-const GRAVITY = 20
 
-var left = true
-var angle = 0
-var mult
+var motion = Vector2()
+var active = false
 
-var movable = true
+export var target = Vector2()
+var start
 
-var motion = Vector2(0,0)
+var player
+var playerParent
 
 func _ready():
-	pass
+	start = global_position
 
 func _physics_process(delta):
-	if movable:
-		motion.x = abs(motion.x)
-		if motion.x < MAX_SPEED:
-			motion.x += ACCEL
+	if active:
+		if global_position.distance_to(target) < 32:
+			motion = Vector2(0,0)
+			active = false
+			var temp = target
+			target = start
+			start = temp
+			playerParent.add_child(player)
+			player.global_position = $Position2D.global_position
+			remove_child(globs.cam)
+			player.add_child(globs.cam)
 		else:
-			motion.x = MAX_SPEED
-		if left:
-			motion.x *= -1
-				
-		motion.y = lerp(motion.y, GRAVITY, 0.05)
-		if !left:
-			$Sprite.flip_h = true
-			$Collider.scale.x = -1
-			$RayCast2D.cast_to.x *= -1
-	else:
-		motion.x = 0
-		motion.y = GRAVITY * 20
-	
-	if $RayCast2D.is_colliding():
-		movable = false
-		motion.x = 0
-	
-	if Input.is_action_just_pressed("ui_switch"):
-		global_position.y -= 50
-		globs.transform_harry()
-	
+			if global_position.x < target.x:
+				$Sprite.flip_h = true
+				if motion.x < MAX_SPEED:
+					motion.x += ACCEL
+			else:
+				$Sprite.flip_h = false
+				if motion.x < MAX_SPEED:
+					motion.x -= ACCEL
+	if Input.is_action_just_pressed("ui_select"):
+		player = get_tree().get_nodes_in_group("playable_characters")[0]
+		playerParent = player.get_parent()
+		if player.global_position.distance_to(global_position) < 100:
+			playerParent.remove_child(player)
+			player.remove_child(globs.cam)
+			add_child(globs.cam)
+			active = true
 	move_and_slide(motion)

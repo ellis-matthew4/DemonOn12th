@@ -11,6 +11,9 @@ var moved = 0
 func _ready():
 	set_process(true)
 	
+func save():
+	pass
+	
 func _process(delta):
 	var k = Vector2(SPEED, 0)
 	if SPEED > 0:
@@ -28,7 +31,7 @@ func _process(delta):
 
 func _on_Start_pressed():
 	globs.spawnPoint = "start"
-	globs.path = "res://office.tscn"
+	globs.path = "res://assets/levels/office.tscn"
 	emit_signal("Switch")
 
 func _on_Load_pressed():

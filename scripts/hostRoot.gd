@@ -9,10 +9,10 @@ func _ready():
 	add_child(scene)
 	
 func switch():
+	globs.removeCam()
 	var x = load(globs.path)
 	remove_child(scene)
+	scene.queue_free()
 	scene = x.instance()
 	scene.connect("Switch", self, "switch")
 	add_child(scene)
-	if get_tree().paused:
-		get_tree().paused = false

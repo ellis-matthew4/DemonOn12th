@@ -7,6 +7,7 @@ const MAX_SPEED = 300
 const JUMP_HEIGHT = 550
 const LADDER_SPEED = 300
 const ATK = preload("res://assets/scenes/attackArea.tscn")
+const PAUSE = preload("res://assets/scenes/PauseMenu.tscn")
 
 var motion = Vector2()
 var left = true
@@ -27,7 +28,6 @@ onready var tilemap = get_tree().current_scene.find_node("midground")
 onready var dmgTimer = $dmgTimer
 
 func _ready():
-	add_to_group("playable_characters")
 	set_process(true)
 	
 func _process(delta):
@@ -54,8 +54,7 @@ func _physics_process(delta):
 			sub = FOLD
 	
 	if Input.is_action_just_pressed("ui_pause"):
-		$PauseMenu.show()
-		get_tree().paused = true
+		add_child(PAUSE.instance())
 		
 	if sub == FOLD:
 		$Sprite.play("fold")
@@ -184,6 +183,7 @@ func hitbox_exited(area):
 	sub = IDLE
 	
 func damage(body, amount):
+	globs.screenShake()
 	globs.damage(amount)
 	if body.global_position.x - global_position.x > 0:
 		motion = Vector2(-200, -200)

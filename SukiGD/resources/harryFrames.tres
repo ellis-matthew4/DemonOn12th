@@ -1,0 +1,43 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=2]
+
+[ext_resource path="res://assets/char/harry/Emotes/harry_neutral.png" type="Texture" id=1]
+[ext_resource path="res://assets/char/harry/Emotes/harry_sad.png" type="Texture" id=2]
+[ext_resource path="res://assets/char/harry/Emotes/harry_happy.png" type="Texture" id=3]
+[ext_resource path="res://assets/char/harry/Emotes/harry_cry.png" type="Texture" id=4]
+[ext_resource path="res://assets/char/harry/Emotes/harry_think.png" type="Texture" id=5]
+[ext_resource path="res://assets/char/harry/Emotes/harry_crazy.png" type="Texture" id=6]
+
+[resource]
+
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "neutral",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "sad",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "cry",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "think",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "crazy",
+"speed": 5.0
+} ]
+

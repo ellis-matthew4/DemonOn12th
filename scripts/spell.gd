@@ -6,3 +6,4 @@ func activate():
 func deactivate():
 	enabled = false
 	$Particles2D.emitting = false
+	get_node("../../midground/Doors/world_door2").queue_free()

@@ -54,7 +54,7 @@ flag_disable_z = true
 spread = 180.0
 flatness = 0.0
 gravity = Vector3( 0, -100, 0 )
-initial_velocity = 25.0
+initial_velocity = 5.0
 initial_velocity_random = 0.0
 angular_velocity = 0.0
 angular_velocity_random = 0.0
@@ -81,7 +81,7 @@ anim_speed_random = 0.0
 anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
-_sections_unfolded = [ "Gravity", "Resource", "Trail" ]
+_sections_unfolded = [ "Initial Velocity", "Resource", "Spread", "Trail" ]
 
 [sub_resource type="CircleShape2D" id=8]
 
@@ -93,28 +93,14 @@ radius = 7.5
 custom_solver_bias = 0.0
 radius = 14.9457
 
-[node name="Source" type="RigidBody2D" groups=[
+[node name="Source" type="KinematicBody2D" index="0" groups=[
 "attack",
 ]]
 
 input_pickable = false
-collision_layer = 2
-collision_mask = 2
-mode = 0
-mass = 1.0
-friction = 0.0
-bounce = 1.0
-gravity_scale = 5.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = false
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
+collision_layer = 0
+collision_mask = 6
+collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 
@@ -126,7 +112,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 [node name="Particles2D" type="Particles2D" parent="." index="1"]
 
 emitting = true
-amount = 32
+amount = 64
 lifetime = 1.0
 one_shot = false
 preprocess = 0.0
@@ -152,7 +138,7 @@ shape = SubResource( 8 )
 [node name="Timer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 2.0
+wait_time = 1.0
 one_shot = true
 autostart = true
 
@@ -187,8 +173,8 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-collision_layer = 2
-collision_mask = 2
+collision_layer = 0
+collision_mask = 6
 audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Collision" ]

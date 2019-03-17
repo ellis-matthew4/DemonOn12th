@@ -1,8 +1,8 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 export var SPEED = -180
-const DEATH = preload("res://assets/scenes/SlimeDeath.tscn")
 var motion = Vector2(0,0)
+const GRAVITY = 20
 
 onready var sprite = $AnimatedSprite
 onready var ray = $RayCast2D
@@ -16,16 +16,18 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
+	if motion.y < 300:
+		motion.y += GRAVITY
 	match(state):
 		IDLE:
 			sprite.play("idle")
-			motion = Vector2(0,0)
+			motion.x = 0
 		WALK:
 			sprite.play("walk")
-			motion = Vector2(SPEED * delta, 0)
+			motion.x = SPEED
 		RUN:
 			sprite.play("run")
-			motion = Vector2(SPEED * 2 * delta, 0)
+			motion.x = SPEED * 2
 		
 	if ray.is_colliding():
 		ray.cast_to.x *= -1
@@ -33,7 +35,7 @@ func _process(delta):
 		SPEED *= -1
 		sprite.flip_h = !sprite.flip_h
 		
-	position += motion
+	move_and_slide(motion)
 
 
 func _on_Timer_timeout():
@@ -55,15 +57,17 @@ func _on_Timer_timeout():
 		print("STATE ERROR")
 		
 func detectPlayer():
-	var p = get_tree().current_scene.get_child(0).find_node("Characters").get_child(0).global_position
-	var m = global_position
-	if abs(p.y-m.y) < 100:
-		if SPEED < 0:
-			if m.x > p.x and abs(m.x-p.x) <= 500:
-				return true
-		else:
-			if m.x < p.x and abs(m.x-p.x) <= 500:
-				return true
+	if len(get_tree().get_nodes_in_group("playable_characters")) > 0:
+		var p = get_tree().get_nodes_in_group("playable_characters")[0].global_position
+		var m = global_position
+		if abs(p.y-m.y) < 100:
+			if SPEED < 0:
+				if m.x > p.x and abs(m.x-p.x) <= 500:
+					return true
+			else:
+				if m.x < p.x and abs(m.x-p.x) <= 500:
+					return true
+		return false
 	return false
 
 func _on_Spear_body_entered(body):
